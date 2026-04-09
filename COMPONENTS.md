@@ -1,340 +1,154 @@
-# Bolt UIKit — Component Reference
+# Shared Components
 
-Import all components from `@bolteu/rnc-react-uikit` unless otherwise noted.
+Import these from `src/components/` in your screen files.
 
-```tsx
-import { Text, Button, Icon, ListItem, Badge, Chip, SearchInput, TextInput } from '@bolteu/rnc-react-uikit';
-```
+## BoltIcon
 
-Bottom sheet is a separate package:
-```tsx
-import { BottomSheet } from '@bolteu/uikit-bottom-sheet';
-```
-
----
-
-## Text
-
-The primary typography component. Wraps React Native's `Text` with the design token type system.
+Renders real Bolt icons from the `bolticons.ttf` font (239 glyphs available).
 
 ```tsx
-<Text type="HeadingXS">Restaurant Name</Text>
-<Text type="BodyMRegular" color={Colors.content.secondary}>Description text</Text>
-<Text type="BodyTabularSAccent">€12.90</Text>
+import { BoltIcon } from '../src/components/Icon';
+
+<BoltIcon name="bicycle" size={16} color={C.secondary} />
+<BoltIcon name="star-filled" size={12} color="#E8A100" />
+<BoltIcon name="home-filled" size={24} color={C.primary} />
 ```
-
-### Props
-
-| Prop | Type | Description |
-|------|------|-------------|
-| `type` | `FontTypeName` | Typography style (see full list below). If omitted, inherits parent style. |
-| `color` | `Colors` | Semantic color token. If omitted, defaults to `content.primary`. |
-| `intlId` | `string` | Translation key (for production i18n — skip in prototypes, use children instead). |
-| `animated` | `boolean` | Use Animated.Text internally. |
-| `noDefaults` | `boolean` | Skip default text styling. |
-
-### FontTypeName — Complete List
-
-**Headings** (Accent/Semibold weight only):
-
-| Type Name | Size | Line Height | Use for |
-|-----------|------|-------------|---------|
-| `HeadingXS` | 20px | 24px | Card titles, list headers |
-| `HeadingS` | 24px | 30px | Sub-section headers |
-| `HeadingM` | 28px | 36px | Section headers |
-| `HeadingL` | 36px | 44px | Screen titles |
-| `HeadingXL` | 40px | 48px | Major screen titles |
-| `Heading2XL` | 48px | 56px | Hero / marketing |
-
-**Body** (Regular = weight 450, Accent = weight 650):
-
-| Type Name | Size | Line Height | Use for |
-|-----------|------|-------------|---------|
-| `BodyLRegular` | 18px | 24px | Prominent body text |
-| `BodyLAccent` | 18px | 24px | Emphasised body text, button labels (regular size) |
-| `BodyMRegular` | 16px | 24px | Default body text, descriptions |
-| `BodyMAccent` | 16px | 24px | Labels, emphasised inline text, button labels (small size) |
-| `BodySRegular` | 14px | 20px | Secondary text, metadata |
-| `BodySAccent` | 14px | 20px | Small labels, emphasised metadata |
-| `BodyXSRegular` | 12px | 16px | Timestamps, legal text |
-| `BodyXSAccent` | 12px | 16px | Small badges, emphasised micro text |
-| `Body2XSRegular` | 10px | 14px | Micro labels (use sparingly) |
-| `Body2XSAccent` | 10px | 14px | Micro labels emphasised |
-
-**Body Compact** (tighter line-height for space-constrained contexts):
-
-| Type Name | Size | Line Height | Use for |
-|-----------|------|-------------|---------|
-| `BodyCompactLRegular` | 18px | 22px | Compact large body |
-| `BodyCompactLAccent` | 18px | 22px | Compact large emphasised |
-| `BodyCompactMRegular` | 16px | 20px | Merchant cards, list items |
-| `BodyCompactMAccent` | 16px | 20px | Merchant card titles in lists |
-| `BodyCompactSRegular` | 14px | 18px | Compact metadata |
-| `BodyCompactSAccent` | 14px | 18px | Compact emphasised metadata |
-| `BodyCompactXSRegular` | 12px | 15px | Compact micro text |
-| `BodyCompactXSAccent` | 12px | 15px | Compact micro emphasised |
-| `BodyCompact2XSRegular` | 10px | 12px | Smallest compact text |
-| `BodyCompact2XSAccent` | 10px | 12px | Smallest compact emphasised |
-
-**Body Tabular** (for prices, ETAs, ratings — all numeric content):
-
-Always use Tabular types for numbers. They enable `tabular-nums` for aligned digits.
-
-| Type Name | Size | Line Height | Use for |
-|-----------|------|-------------|---------|
-| `BodyTabularLRegular` | 18px | 24px | Large prices, totals |
-| `BodyTabularLAccent` | 18px | 24px | Emphasised totals, order total |
-| `BodyTabularMRegular` | 16px | 24px | Standard prices |
-| `BodyTabularMAccent` | 16px | 24px | Emphasised prices, line item totals |
-| `BodyTabularSRegular` | 14px | 20px | Delivery fees, small prices |
-| `BodyTabularSAccent` | 14px | 20px | Emphasised small prices |
-| `BodyTabularXSRegular` | 12px | 16px | Micro prices, timestamps |
-| `BodyTabularXSAccent` | 12px | 16px | Emphasised micro prices |
-| `BodyTabular2XSRegular` | 10px | 14px | Tiny numeric labels |
-| `BodyTabular2XSAccent` | 10px | 14px | Tiny numeric labels emphasised |
-
-**Body Tabular Compact** (tabular nums + tight line-height):
-
-| Type Name | Size | Line Height |
-|-----------|------|-------------|
-| `BodyTabularLCompactRegular` | 18px | 22px |
-| `BodyTabularLCompactAccent` | 18px | 22px |
-| `BodyTabularMCompactRegular` | 16px | 20px |
-| `BodyTabularMCompactAccent` | 16px | 20px |
-| `BodyTabularSCompactRegular` | 14px | 18px |
-| `BodyTabularSCompactAccent` | 14px | 18px |
-| `BodyTabularXSCompactRegular` | 12px | 15px |
-| `BodyTabularXSCompactAccent` | 12px | 15px |
-| `BodyTabular2XSCompactRegular` | 10px | 12px |
-| `BodyTabular2XSCompactAccent` | 10px | 12px |
-
-**Not in the UIKit (style manually using CLAUDE.md tokens):**
-- Caps (uppercase labels, badges) — apply `textTransform: 'uppercase'` + `BodySAccent` or `BodyXSAccent`
-- Display (hero text) — use `Heading2XL` as closest alternative
-
----
-
-## Button
-
-```tsx
-<Button type="Primary" onPress={handlePress}>Place order</Button>
-<Button type="Secondary" iconName="arrow-left" onPress={goBack}>Back</Button>
-<Button type="Ghost" onPress={handleLink}>See details</Button>
-```
-
-### Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `type` | `ButtonTypeName` | `'Primary'` | Visual style and size (see below) |
-| `iconName` | `IconName` | — | Icon to display alongside label |
-| `iconSize` | `number` | — | Custom icon size |
-| `pressed` | `boolean` | — | Force pressed appearance |
-| `pending` | `boolean` | — | Show spinner, apply pending style |
-| `disabled` | `boolean` | — | Disable interaction |
-| `onPress` | `() => void` | — | Press handler |
+| `name` | `string` | required | Icon name from bolticons — see ICONS.md |
+| `size` | `number` | `24` | Icon size in px |
+| `color` | `string` | `'#191F1C'` | Icon color |
 
-### ButtonTypeName
+## T (Typography)
 
-| Type | Style | Size | Font | Use for |
-|------|-------|------|------|---------|
-| `Primary` | Green bg, white text | Regular (16px padding) | `BodyLAccent` (18px) | Main CTAs |
-| `PrimarySmall` | Green bg, white text | Small (12px padding) | `BodyMAccent` (16px) | Compact CTAs |
-| `Secondary` | Subtle gray bg, dark text | Regular | `BodyLAccent` | Secondary actions |
-| `SecondarySmall` | Subtle gray bg, dark text | Small | `BodyMAccent` | Compact secondary |
-| `Danger` | Red bg, white text | Regular | `BodyLAccent` | Destructive actions |
-| `DangerSmall` | Red bg, white text | Small | `BodyMAccent` | Compact destructive |
-| `Ghost` | Transparent, green text | Regular | `BodyLAccent` | Links, tertiary actions |
-| `GhostSmall` | Transparent, green text | Small | `BodyMAccent` | Compact links |
-| `Floating` | White bg, elevation shadow | Regular | `BodyMRegular` | Map overlay buttons |
-| `FloatingSmall` | White bg, elevation shadow | Small (8px padding) | `BodyMRegular` | Compact map buttons |
-
-**Note:** There is no "Dark" button type (`bg.neutralPrimary` dark background) in the shared UIKit. For high-commitment dark CTAs ("Add to cart", "Place order · €12.90"), build from a `Pressable` with `bg.neutralPrimary` background + `content.primaryInverted` text, or override the Primary button's `contentStyle`. This is an app-specific pattern in the Delivery eater app, not a shared component.
-
-### Button states (handled automatically)
-
-Each button type has five states: `normal`, `hovering`, `pressed`, `pending`, `disabled`. These apply the correct color shifts from the token system. You don't need to manage them manually.
-
----
-
-## Icon
+Token-aware Text wrapper. Uses font styles from `tokens.ts`.
 
 ```tsx
-<Icon name="arrow-right" size={24} color={Colors.content.primary} />
-<Icon name="star-filled" size={16} color={Colors.content.warningPrimary} />
+import { T } from '../src/components/Typography';
+
+<T type="HeadingS">Section Title</T>
+<T type="BodyMRegular" color={C.secondary}>Description text</T>
+<T type="TabSRegular" color={C.actionPrimary}>€12.90</T>
 ```
 
-### Props
+Available types (see tokens.ts for full list):
+- **Headings**: HeadingXS (20px), HeadingS (24px), HeadingM (28px), HeadingL (36px)
+- **Body**: BodyLAccent/Regular (18px), BodyMAccent/Regular (16px), BodySAccent/Regular (14px), BodyXSAccent/Regular (12px)
+- **Tabular** (for numbers): TabLAccent/Regular, TabMAccent/Regular, TabSAccent/Regular, TabXSAccent/Regular
+- Weight: Regular = 450, Accent = 650
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `name` | `IconName` | Icon identifier from the Bolt icon set |
-| `size` | `number` | Icon dimensions in px (default 24) |
-| `color` | `Colors` | Semantic color token |
-
-Standard sizes: 16px (XS), 20px (S), 24px (M).
-
-Note: The full `IconName` list is extensive. Common Delivery icons include: `arrow-left`, `arrow-right`, `chevron-right`, `close`, `search`, `star-filled`, `star-outline`, `clock`, `location`, `bag`, `heart`, `heart-filled`, `filter`, `sort`. Check the Icon demo screen in the sample app for the complete set.
-
----
-
-## ListItem / BoltListItem
+## C (Colors) and F (Font Styles)
 
 ```tsx
-<ListItem
-  title="Margherita Pizza"
-  subtitle="Classic tomato, mozzarella, basil"
-  rightContent={<Text type="BodyTabularMAccent">€9.90</Text>}
-/>
+import { C, F, SCREEN_PADDING_H, DEFAULT_BORDER_RADIUS } from '../src/components/tokens';
+
+// Colors
+C.primary           // #191F1C — primary text
+C.secondary         // rgba(0,10,7,0.63) — descriptions
+C.tertiary          // rgba(0,17,11,0.47) — placeholders
+C.actionPrimary     // rgba(0,112,66,0.92) — green interactive text
+C.bgActionPrimary   // #2B8659 — green button bg
+C.bgNeutralPrimary  // #0E1010 — dark button bg
+C.bgNeutralSecondary // rgba(0,45,30,0.07) — search bar, input bg
+C.bgDangerPrimary   // #DE1929 — red badges, destructive
+C.primaryInverted   // rgba(253,255,254,0.93) — white text on dark bg
+
+// Layout constants
+SCREEN_PADDING_H    // 24px
+DEFAULT_BORDER_RADIUS // 8px
 ```
 
-Use `ListItem` for standard list rows. `BoltListItem` may be a Bolt-specific variant — check the sample app demo for differences.
+## RatingBadge
 
----
-
-## Badge
+Star rating pill with yellow background for high ratings (>= 4.6).
 
 ```tsx
-<Badge type="promo" label="20% OFF" />
-<Badge type="info" label="New" />
+import { RatingBadge } from '../src/components/RatingBadge';
+
+<RatingBadge rating="4.8" reviews="500+" size="small" />
 ```
 
-For promotional badges, status indicators, and small labels.
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `rating` | `string` | required | Rating value |
+| `reviews` | `string` | required | Review count label |
+| `size` | `'small' \| 'medium'` | `'small'` | Badge size |
 
----
+## DeliveryInfo
 
-## Chip
+Delivery fee + ETA row with bicycle and clock icons.
 
 ```tsx
-<Chip label="Pizza" selected={isSelected} onPress={toggleFilter} />
+import { DeliveryInfo } from '../src/components/DeliveryInfo';
+
+<DeliveryInfo deliveryFee="Free delivery" eta="15–25 min" size="M" />
+<DeliveryInfo deliveryFee="0,00 €" originalFee="1,90 €" eta="25–40 min" size="L" />
 ```
 
-For filter chips, cuisine category selectors, horizontal scrollable tag rows.
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `deliveryFee` | `string` | required | Fee text (green if free) |
+| `originalFee` | `string?` | — | Strikethrough original price |
+| `eta` | `string` | required | Delivery time estimate |
+| `size` | `'M' \| 'L'` | `'M'` | M = 12px icons, L = 16px icons |
+| `isFree` | `boolean?` | — | Force free delivery styling |
 
----
+## ProviderCard
 
-## SearchInput
+Complete merchant card matching production Bolt Food layout.
 
 ```tsx
-<SearchInput
-  placeholder="Search restaurants, dishes..."
-  value={query}
-  onChangeText={setQuery}
-/>
+import { ProviderCard } from '../src/components/ProviderCard';
+
+<ProviderCard restaurant={restaurant} size="M" onPress={() => navigate(restaurant.id)} />
 ```
 
-The home screen search bar. Comes with the search icon and clear button built in.
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `restaurant` | `Restaurant` | required | From src/data.tsx |
+| `size` | `'M' \| 'L'` | `'L'` | M = 210px grid card, L = full-width |
+| `onPress` | `() => void` | — | Tap handler |
 
----
+Card structure:
+- Image: **2:1 aspect ratio**, **8px** border radius
+- Campaign badge: red (#DE1929), top-left, 4px radius
+- Heart icon: white circle, top-right
+- Rating badge: bottom-right (yellow for high ratings)
+- Name: BodyMAccent (M) / BodyLAccent (L) + optional Bolt Plus badge
+- DeliveryInfo row below
 
-## TextInput / PlainTextInput
+## SectionHeader
+
+Section title with "All >" link.
 
 ```tsx
-<TextInput
-  label="Delivery address"
-  value={address}
-  onChangeText={setAddress}
-  placeholder="Enter your address"
-/>
+import { SectionHeader } from '../src/components/SectionHeader';
+
+<SectionHeader title="Bolt Plus offers" />
+<SectionHeader title="Recommended for you" subtitle="Based on past orders" />
 ```
 
-`TextInput` includes a floating label. `PlainTextInput` is a simpler variant without the label.
+## BottomTabBar
 
----
-
-## SnackBar
+5-tab navigation bar with real Bolt icons.
 
 ```tsx
-<SnackBar message="Added to cart" type="success" />
+import { BottomTabBar } from '../src/components/BottomTabBar';
+
+<BottomTabBar activeTab="Home" bottomInset={insets.bottom} />
 ```
 
-Toast notification component for transient feedback.
+Tabs: Home, Stores, Search, DineOut, Account.
 
----
+## StatusBarChrome
 
-## Toggle / CheckBox / RadioButton
+iPhone status bar mockup for prototype fidelity.
 
 ```tsx
-<Toggle value={isEnabled} onValueChange={setIsEnabled} />
-<CheckBox checked={isChecked} onPress={toggleCheck} label="Extra sauce" />
-<RadioButton selected={isSelected} onPress={selectOption} label="Standard delivery" />
+import { StatusBarChrome } from '../src/components/StatusBarChrome';
+
+<StatusBarChrome />
 ```
 
-For settings, customisation options, and selection lists.
-
----
-
-## InfoBox
-
-```tsx
-<InfoBox type="info" message="Free delivery on orders over €15" />
-```
-
-Informational banner for notices, promotions, and contextual information.
-
----
-
-## NavigationHeader
-
-```tsx
-<NavigationHeader title="Checkout" onBackPress={goBack} />
-```
-
-Standard screen header with back navigation.
-
----
-
-## Bottom Sheet (separate package)
-
-```tsx
-import { BottomSheet } from '@bolteu/uikit-bottom-sheet';
-
-<BottomSheet isOpen={isOpen} onClose={close}>
-  {/* Sheet content */}
-</BottomSheet>
-```
-
-Used for checkout, filters, merchant info, and contextual actions.
-
----
-
-## Layout Primitives
-
-The sample app uses `Row` and `Column` from the blocks:
-
-```tsx
-import { Row, Column } from '@bolteu/rnc-react-uikit';
-```
-
-These are simple flex wrappers — `Row` = `flexDirection: 'row'`, `Column` = `flexDirection: 'column'`.
-
----
-
-## Colors Import
-
-To apply colors directly (for custom-built components or overrides):
-
-```tsx
-import { Colors } from '@bolteu/rnc-react-uikit';
-
-// Use in styles:
-{ backgroundColor: Colors.bg.actionPrimary }
-{ color: Colors.content.secondary }
-{ borderColor: Colors.border.separator }
-```
-
-The `Colors` object follows the exact same structure as the semantic color tokens in CLAUDE.md (`Colors.bg.*`, `Colors.content.*`, `Colors.border.*`, `Colors.layer.*`, `Colors.special.*`, etc.).
-
----
-
-## Components NOT in the shared UIKit
-
-Build these from primitives (`View`, `Pressable`, `Image`, `ScrollView`) + the design tokens in CLAUDE.md:
-
-- **Card / Surface**: Use `View` with `layer.surface` background + 12px border radius
-- **ProgressBar / Stepper**: Use `View` with `bg.actionPrimary` (completed) / `bg.neutralSecondary` (pending)
-- **Dark CTA button**: Use `Pressable` with `bg.neutralPrimary` background + `content.primaryInverted` text
-- **Merchant Card**: Compose from `Image` + `Text` + `Badge` following the pattern in CLAUDE.md
-- **Map / Tracking**: Use `react-native-maps` or a placeholder view with map tokens from CLAUDE.md
-- **TabBar**: Use `@react-navigation/bottom-tabs` (already in sample app dependencies)
-- **Caps text**: Use `Text` with a Body type + `style={{ textTransform: 'uppercase' }}`
+Renders time (15:31), Dynamic Island, signal/wifi/battery indicators.

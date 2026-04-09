@@ -56,7 +56,7 @@ export function ProviderCard({ restaurant, size = 'L', onPress }: ProviderCardPr
           ]}
           accessibilityLabel="Save to favourites"
         >
-          <BoltIcon name="heart-outlined" size={isLarge ? 16 : 14} color={C.primary} />
+          <BoltIcon name="heart" size={isLarge ? 16 : 14} color={C.primary} />
         </Pressable>
 
         {/* Rating badge */}

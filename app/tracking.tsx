@@ -5,22 +5,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useBasket } from '../src/basket';
 import React from 'react';
-import { Text as RNText, TextProps, TextStyle } from 'react-native';
 
-const C = {
-  floor0: '#fff',
-  floor1: '#fff',
-  surface: 'rgba(0,45,30,0.07)',
-  primary: '#191F1C',
-  secondary: 'rgba(0,10,7,0.63)',
-  tertiary: 'rgba(0,17,11,0.47)',
-  actionPrimary: 'rgba(0,112,66,0.92)',
-  bgActionPrimary: '#2B8659',
-  bgNeutralPrimary: '#0E1010',
-  bgNeutralSecondary: 'rgba(0,45,30,0.07)',
-  separator: 'rgba(0,45,30,0.07)',
-  primaryInverted: 'rgba(253,255,254,0.93)',
-  brand: '#2B8659',
+import { C, SCREEN_PADDING_H } from '../src/components/tokens';
+import { T } from '../src/components/Typography';
+
+// Map-specific colors not in shared tokens
+const MapColors = {
   mapBg: '#E8F0ED',
   mapRoute: '#0F1755',
   mapStart: '#2B8659',
@@ -28,27 +18,6 @@ const C = {
   mapMarkerBg: '#0E1010',
   mapMarkerText: '#ECEEEB',
 };
-
-const fontStyles: Record<string, TextStyle> = {
-  'HeadingS': { fontSize: 24, lineHeight: 30, fontWeight: '600', letterSpacing: -0.304 },
-  'HeadingXS': { fontSize: 20, lineHeight: 24, fontWeight: '600', letterSpacing: -0.272 },
-  'BodyLAccent': { fontSize: 18, lineHeight: 24, fontWeight: '600', letterSpacing: -0.224 },
-  'BodyMRegular': { fontSize: 16, lineHeight: 24, fontWeight: '400', letterSpacing: -0.176 },
-  'BodyMAccent': { fontSize: 16, lineHeight: 24, fontWeight: '600', letterSpacing: -0.176 },
-  'BodySRegular': { fontSize: 14, lineHeight: 20, fontWeight: '400', letterSpacing: -0.096 },
-  'BodySAccent': { fontSize: 14, lineHeight: 20, fontWeight: '600', letterSpacing: -0.096 },
-  'BodyTabularMAccent': { fontSize: 16, lineHeight: 24, fontWeight: '600', letterSpacing: -0.416, fontVariant: ['tabular-nums'] },
-  'BodyTabularSRegular': { fontSize: 14, lineHeight: 20, fontWeight: '400', letterSpacing: -0.336, fontVariant: ['tabular-nums'] },
-};
-
-function T({ type, color, style, ...props }: TextProps & { type: string; color?: string }) {
-  return (
-    <RNText
-      style={[{ fontFamily: 'System', color: color || C.primary }, fontStyles[type], style]}
-      {...props}
-    />
-  );
-}
 
 const trackingSteps = [
   { label: 'Order placed', status: 'complete' as const },
@@ -122,7 +91,7 @@ export default function TrackingScreen() {
         {/* Courier marker (animated position would go here) */}
         {!isDelivered && (
           <View style={[styles.mapMarker, styles.courierMarker]}>
-            <T type="BodySAccent" color={C.mapMarkerText}>
+            <T type="BodySAccent" color={MapColors.mapMarkerText}>
               🛵
             </T>
           </View>
@@ -206,7 +175,7 @@ export default function TrackingScreen() {
         <Pressable style={styles.orderSummaryRow}>
           <T type="BodyMRegular">{basket.restaurantName || 'Your order'}</T>
           <View style={styles.orderSummaryRight}>
-            <T type="BodyTabularMAccent">
+            <T type="TabularMAccent">
               €{(basket.totalPrice + basket.deliveryFee).toFixed(2)}
             </T>
             <T type="BodyMRegular" color={C.tertiary}>
@@ -231,7 +200,7 @@ export default function TrackingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: C.mapBg,
+    backgroundColor: MapColors.mapBg,
   },
   mapArea: {
     flex: 1,
@@ -243,7 +212,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '60%',
     height: 3,
-    backgroundColor: C.mapRoute,
+    backgroundColor: MapColors.mapRoute,
     borderRadius: 2,
     top: '45%',
   },
@@ -256,17 +225,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   mapMarkerStart: {
-    backgroundColor: C.mapStart,
+    backgroundColor: MapColors.mapStart,
     left: '15%',
     top: '38%',
   },
   mapMarkerEnd: {
-    backgroundColor: C.mapEnd,
+    backgroundColor: MapColors.mapEnd,
     right: '15%',
     top: '38%',
   },
   courierMarker: {
-    backgroundColor: C.mapMarkerBg,
+    backgroundColor: MapColors.mapMarkerBg,
     left: '45%',
     top: '32%',
   },
@@ -274,7 +243,7 @@ const styles = StyleSheet.create({
     backgroundColor: C.floor0,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
-    paddingHorizontal: 24,
+    paddingHorizontal: SCREEN_PADDING_H,
     paddingTop: 24,
   },
   etaSection: {

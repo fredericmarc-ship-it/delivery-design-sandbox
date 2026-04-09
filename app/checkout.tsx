@@ -4,44 +4,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useBasket } from '../src/basket';
 import React from 'react';
-import { Text as RNText, TextProps, TextStyle } from 'react-native';
 
-const C = {
-  floor0: '#fff',
-  surface: 'rgba(0,45,30,0.07)',
-  primary: '#191F1C',
-  secondary: 'rgba(0,10,7,0.63)',
-  tertiary: 'rgba(0,17,11,0.47)',
-  actionPrimary: 'rgba(0,112,66,0.92)',
-  promoPrimary: 'rgba(56,4,215,0.94)',
-  promoSecondary: 'rgba(0,60,255,0.07)',
-  bgNeutralPrimary: '#0E1010',
-  bgNeutralSecondary: 'rgba(0,45,30,0.07)',
-  separator: 'rgba(0,45,30,0.07)',
-  primaryInverted: 'rgba(253,255,254,0.93)',
-  dangerPrimary: 'rgba(173,0,14,0.94)',
-};
-
-const fontStyles: Record<string, TextStyle> = {
-  'HeadingL': { fontSize: 36, lineHeight: 44, fontWeight: '600', letterSpacing: -0.352 },
-  'HeadingXS': { fontSize: 20, lineHeight: 24, fontWeight: '600', letterSpacing: -0.272 },
-  'BodyLAccent': { fontSize: 18, lineHeight: 24, fontWeight: '600', letterSpacing: -0.224 },
-  'BodyMRegular': { fontSize: 16, lineHeight: 24, fontWeight: '400', letterSpacing: -0.176 },
-  'BodyMAccent': { fontSize: 16, lineHeight: 24, fontWeight: '600', letterSpacing: -0.176 },
-  'BodySRegular': { fontSize: 14, lineHeight: 20, fontWeight: '400', letterSpacing: -0.096 },
-  'BodyTabularLAccent': { fontSize: 18, lineHeight: 24, fontWeight: '600', letterSpacing: -0.464, fontVariant: ['tabular-nums'] },
-  'BodyTabularMRegular': { fontSize: 16, lineHeight: 24, fontWeight: '400', letterSpacing: -0.416, fontVariant: ['tabular-nums'] },
-  'BodyTabularMAccent': { fontSize: 16, lineHeight: 24, fontWeight: '600', letterSpacing: -0.416, fontVariant: ['tabular-nums'] },
-};
-
-function T({ type, color, style, ...props }: TextProps & { type: string; color?: string }) {
-  return (
-    <RNText
-      style={[{ fontFamily: 'System', color: color || C.primary }, fontStyles[type], style]}
-      {...props}
-    />
-  );
-}
+import { C, SCREEN_PADDING_H } from '../src/components/tokens';
+import { T } from '../src/components/Typography';
+import { BoltIcon } from '../src/components/Icon';
 
 export default function CheckoutScreen() {
   const router = useRouter();
@@ -59,7 +25,7 @@ export default function CheckoutScreen() {
   if (basket.items.length === 0) {
     return (
       <View style={[styles.container, styles.emptyContainer, { paddingTop: insets.top }]}>
-        <T type="HeadingXS">Your basket is empty</T>
+        <T type="HeadingXSAccent">Your basket is empty</T>
         <Pressable style={styles.backLink} onPress={() => router.back()}>
           <T type="BodyMAccent" color={C.actionPrimary}>
             Browse restaurants
@@ -75,7 +41,7 @@ export default function CheckoutScreen() {
         {/* Header */}
         <View style={styles.header}>
           <Pressable onPress={() => router.back()}>
-            <T type="BodyLAccent">←</T>
+            <BoltIcon name="arrow-left" size={24} color={C.primary} />
           </Pressable>
           <T type="HeadingL">Checkout</T>
         </View>
@@ -109,7 +75,7 @@ export default function CheckoutScreen() {
           </T>
           <View style={styles.addressRow}>
             <T type="BodyMAccent">As soon as possible</T>
-            <T type="BodyTabularMRegular" color={C.secondary}>
+            <T type="TabularM" color={C.secondary}>
               15–25 min
             </T>
           </View>
@@ -120,7 +86,7 @@ export default function CheckoutScreen() {
         {/* Order Items */}
         <View style={styles.section}>
           <View style={styles.sectionHeaderRow}>
-            <T type="HeadingXS">{basket.restaurantName}</T>
+            <T type="HeadingXSAccent">{basket.restaurantName}</T>
           </View>
 
           {basket.items.map((item) => (
@@ -133,7 +99,7 @@ export default function CheckoutScreen() {
               <T type="BodyMRegular" style={{ flex: 1 }}>
                 {item.name}
               </T>
-              <T type="BodyTabularMAccent">
+              <T type="TabularMAccent">
                 €{(item.price * item.quantity).toFixed(2)}
               </T>
             </View>
@@ -164,21 +130,21 @@ export default function CheckoutScreen() {
         <View style={styles.section}>
           <View style={styles.priceRow}>
             <T type="BodyMRegular">Subtotal</T>
-            <T type="BodyTabularMRegular">€{subtotal.toFixed(2)}</T>
+            <T type="TabularM">€{subtotal.toFixed(2)}</T>
           </View>
           <View style={styles.priceRow}>
             <T type="BodyMRegular">Delivery</T>
             {delivery === 0 ? (
-              <T type="BodyTabularMRegular" color={C.actionPrimary}>
+              <T type="TabularM" color={C.actionPrimary}>
                 Free
               </T>
             ) : (
-              <T type="BodyTabularMRegular">€{delivery.toFixed(2)}</T>
+              <T type="TabularM">€{delivery.toFixed(2)}</T>
             )}
           </View>
           <View style={[styles.priceRow, styles.totalRow]}>
             <T type="BodyLAccent">Total</T>
-            <T type="BodyTabularLAccent">€{total.toFixed(2)}</T>
+            <T type="TabularLAccent">€{total.toFixed(2)}</T>
           </View>
         </View>
 
@@ -211,13 +177,13 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   header: {
-    paddingHorizontal: 24,
+    paddingHorizontal: SCREEN_PADDING_H,
     paddingTop: 12,
     paddingBottom: 20,
     gap: 12,
   },
   section: {
-    paddingHorizontal: 24,
+    paddingHorizontal: SCREEN_PADDING_H,
     paddingVertical: 16,
   },
   sectionHeaderRow: {
@@ -270,7 +236,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    paddingHorizontal: 24,
+    paddingHorizontal: SCREEN_PADDING_H,
     paddingTop: 12,
     backgroundColor: C.floor0,
     borderTopWidth: 1,

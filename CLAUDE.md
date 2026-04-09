@@ -8,7 +8,37 @@ You are helping a product designer prototype screens and interactions for Bolt's
 - **Preview**: Expo Go on device or web browser — no Xcode/Android Studio required
 - **Language**: TypeScript, functional components only
 - **Styling**: StyleSheet.create() using design tokens below — no inline styles, no Tailwind, no styled-components
-- **Components**: Import from `@bolteu/react-commons` where available. When a component doesn't exist in the library, build it from primitives (View, Text, Pressable, Image) using the tokens below.
+- **Components**: Import from `src/components/` — the sandbox ships simplified versions of Bolt's design system components. When a component doesn't exist, build it from primitives (View, Text, Pressable, Image) using the tokens below.
+
+### Shared Components
+
+The sandbox includes pre-built components in `src/components/`. Import and use these instead of building from scratch:
+
+| Component | Import | Purpose |
+|-----------|--------|---------|
+| `BoltIcon` | `src/components/Icon` | Renders real Bolt icons from `bolticons.ttf` font. See `ICONS.md` for full catalogue. |
+| `T` | `src/components/Typography` | Token-aware Text wrapper. `<T type="BodyMAccent" color={C.secondary}>` |
+| `C`, `F` | `src/components/tokens` | Color tokens (`C.primary`, `C.bgActionPrimary`) and font styles (`F.BodyMAccent`) |
+| `RatingBadge` | `src/components/RatingBadge` | Star rating pill (yellow bg for high ratings). Props: `rating`, `reviews`, `size` |
+| `DeliveryInfo` | `src/components/DeliveryInfo` | Bicycle + fee + clock + ETA row. Props: `deliveryFee`, `eta`, `originalFee?` |
+| `ProviderCard` | `src/components/ProviderCard` | Complete merchant card (image, badges, rating, name, delivery info). Props: `restaurant`, `size`, `onPress` |
+| `SectionHeader` | `src/components/SectionHeader` | "Title ... All >" row. Props: `title`, `subtitle?` |
+| `BottomTabBar` | `src/components/BottomTabBar` | 5-tab navigation bar. Props: `activeTab`, `bottomInset` |
+| `StatusBarChrome` | `src/components/StatusBarChrome` | iPhone status bar mockup (time, signal, wifi, battery) |
+
+### Icons
+
+Icons use the real Bolt icon font (`bolticons.ttf`, 239 glyphs). See `ICONS.md` for the complete catalogue.
+
+```tsx
+import { BoltIcon } from '../src/components/Icon';
+
+<BoltIcon name="bicycle" size={16} color={C.secondary} />
+<BoltIcon name="star-filled" size={12} color="#E8A100" />
+<BoltIcon name="heart" size={14} color={C.primary} />
+```
+
+Common delivery icons: `bicycle`, `clock`, `star-filled`, `heart`, `heart-filled`, `pin`, `pin-filled`, `basket`, `order`, `search`, `filter`, `chevron-right`, `close`, `plus`, `minus`, `check`.
 
 ---
 
@@ -58,7 +88,7 @@ Three standard sizes for interactive elements:
 
 Icon sizes: XS (16px), S (20px), M (24px). Default to M.
 
-Corner radius: `cornerRadius.full` (pill/fully rounded) for buttons and badges. For cards and containers, use 12px. For small elements (chips, tags), use 8px.
+Corner radius: `cornerRadius.full` (pill/fully rounded) for buttons and badges. For cards and containers, use **8px** (`DEFAULT_BORDER_RADIUS`). For small elements (chips, tags, rating badges), use **4px**.
 
 ### Typography
 
@@ -298,7 +328,7 @@ These are common screen structures in Bolt Delivery. Use them as composition tem
 Used on home screen, search results, category listings. Horizontal or vertical layout.
 
 Structure:
-- Image (aspect ratio 16:9 for horizontal, 1:1 for vertical)
+- Image (aspect ratio **2:1** for all card sizes)
 - Merchant name: `Heading.XS.Accent` (20px)
 - Cuisine/category: `Body.S.Regular`, `content.secondary`
 - Rating + delivery info row: `Body.S.Regular` with `Tabular.S` for numbers
@@ -368,4 +398,4 @@ Structure:
 7. **Default to light mode.** Only use dark mode tokens when explicitly requested.
 8. **Accessibility basics.** Include `accessibilityLabel` on interactive elements and images. Use semantic color tokens (not raw hex values) so contrast ratios are maintained.
 9. **Euro currency.** Default to € for prices unless the designer specifies another currency.
-10. **Status bar.** Assume standard system status bar. Don't prototype custom status bars.
+10. **Status bar.** The sandbox includes `StatusBarChrome` in `src/components/` for iPhone status bar mockups in prototypes.

@@ -7,7 +7,7 @@ A React Native prototyping environment for Bolt Delivery designers. Build and te
 See [GETTING_STARTED.md](./GETTING_STARTED.md) for the full setup guide.
 
 ```
-npm install   # VPN required for @bolteu packages
+npm install
 npm start     # opens Expo
 ```
 
@@ -31,10 +31,11 @@ The tracking screen simulates order progression: it moves through "Order placed 
 
 ## How to prototype
 
-Use Claude Code to modify any screen or build new ones. Claude reads two reference files:
+Use Claude Code to modify any screen or build new ones. Claude reads these reference files:
 
 - **CLAUDE.md** — Design tokens (colours, spacing, typography), Delivery screen patterns, prototyping rules
-- **COMPONENTS.md** — UIKit component APIs, prop types, usage examples
+- **COMPONENTS.md** — Shared component APIs (`ProviderCard`, `BoltIcon`, `T`, `RatingBadge`, etc.), prop types, usage examples
+- **ICONS.md** — Complete catalogue of 239 Bolt icon font glyphs
 
 **Examples of what to try:**
 
@@ -55,12 +56,22 @@ delivery-design-sandbox/
 │   ├── checkout.tsx         # Checkout — order summary, place order
 │   └── tracking.tsx         # Order tracking — stepper, courier, ETA
 ├── src/
+│   ├── components/
+│   │   ├── tokens.ts        # Color tokens (C), font styles (F), layout constants
+│   │   ├── Typography.tsx   # T — token-aware Text wrapper
+│   │   ├── Icon.tsx         # BoltIcon — renders bolticons.ttf glyphs
+│   │   ├── ProviderCard.tsx # Merchant card (image, badges, rating, delivery info)
+│   │   ├── RatingBadge.tsx  # Star rating pill
+│   │   ├── DeliveryInfo.tsx # Bicycle + fee + clock + ETA row
+│   │   ├── SectionHeader.tsx # "Title ... All >" row
+│   │   ├── BottomTabBar.tsx # 5-tab navigation bar
+│   │   └── StatusBarChrome.tsx # iPhone status bar mockup
 │   ├── basket.tsx           # Shared basket state (React Context)
 │   └── data.tsx             # Mock restaurants and menu data
 ├── CLAUDE.md                # Design tokens & patterns (Claude reads this)
-├── COMPONENTS.md            # Component API reference (Claude reads this)
+├── COMPONENTS.md            # Shared component API reference (Claude reads this)
+├── ICONS.md                 # Complete Bolt icon font catalogue (239 glyphs)
 ├── GETTING_STARTED.md       # Setup guide for designers
-├── .npmrc                   # Internal package registry config
 └── package.json
 ```
 

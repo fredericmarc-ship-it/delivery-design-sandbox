@@ -1,13 +1,12 @@
 # Getting Started — Delivery React Native Sandbox
 
-Prototype Bolt Delivery screens using real design system components, powered by Claude Code. This sandbox uses **React Native** with Expo — the same component library as the production Delivery app.
+Prototype Bolt Delivery screens using real design system components, powered by Claude Code. This sandbox uses **React Native** with Expo — simplified components matching the production Delivery app's visual design.
 
 > **New to Git?** Read the [Git & GitHub fundamentals for designers](link-to-mos-guide) guide first. This guide assumes you're comfortable with the basics.
 
 ## What you'll need
 
 - A Mac with Terminal access
-- VPN connected (required to pull Bolt packages)
 - An iPhone with [Expo Go](https://apps.apple.com/app/expo-go/id982107779) installed (or use the web preview)
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed
 - GitHub access to Boltable org
@@ -40,7 +39,6 @@ Go to [github.com/settings/ssh/new](https://github.com/settings/ssh/new), paste 
 
 ## 2. Clone and install
 
-Make sure your VPN is connected, then:
 ```
 git clone git@github.com:boltable/delivery-design-sandbox.git
 cd delivery-design-sandbox
@@ -76,7 +74,7 @@ Claude Code automatically reads `CLAUDE.md` (design tokens, spacing, Delivery pa
 
 > "Create a checkout screen with a delivery address card, order items list with prices, a promo code row, price breakdown with delivery fee, and a Place Order button. Add it to the prototypes list on the home screen."
 
-Claude Code will create a new `.tsx` file in `app/`, add it to the home screen list, and use real `@bolteu/rnc-react-uikit` components. The preview updates automatically.
+Claude Code will create a new `.tsx` file in `app/`, add it to the home screen list, and use shared components from `src/components/`. The preview updates automatically.
 
 ## 5. More prompts to try
 
@@ -102,14 +100,13 @@ Example: `sofia/order-tracking-exploration`
 |---|---|
 | Design tokens, colours, spacing, patterns | `CLAUDE.md` |
 | Component APIs and prop types | `COMPONENTS.md` |
-| Example prototype | `app/merchant-list.tsx` |
+| Icon catalogue (239 glyphs) | `ICONS.md` |
+| Example prototype | `app/index.tsx` |
 | Your prototypes go here | `app/your-screen-name.tsx` |
 
 ## Troubleshooting
 
 **"command not found: nvm"** — Close and reopen terminal, or run `source ~/.zshrc`.
-
-**npm install fails with registry errors** — Check your VPN is connected. The `@bolteu` packages come from an internal registry that requires VPN.
 
 **"Permission denied (publickey)"** — Redo the SSH key steps. Make sure SSO is authorized for the `boltable` org.
 

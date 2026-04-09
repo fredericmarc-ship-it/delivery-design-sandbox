@@ -52,7 +52,7 @@ export function DeliveryInfo({
       {/* ETA */}
       <View style={styles.block}>
         <BoltIcon
-          name="timer-outlined"
+          name="clock"
           size={iconSize}
           color={C.secondary}
         />
