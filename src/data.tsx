@@ -19,9 +19,11 @@ export interface Restaurant {
   rating: string;
   reviews: string;
   deliveryFee: string;
+  originalFee?: string; // shown as strikethrough next to discounted fee
   eta: string;
   image: string;
   promo?: string;
+  boltPlus?: boolean;   // shows green Bolt Plus badge next to name
   menu: MenuSection[];
 }
 
@@ -36,11 +38,11 @@ export const categories = [
 
 // "Order again" section — recent merchants
 export const orderAgain = [
-  { id: 'napoli', name: 'Napoli Express', image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=200&h=200&fit=crop' },
-  { id: 'sakura', name: 'Sakura Sushi', image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=200&h=200&fit=crop' },
-  { id: 'greenbox', name: 'Green Box', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=200&fit=crop' },
-  { id: 'brgr', name: 'BRGR Factory', image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&h=200&fit=crop' },
-  { id: 'pelm', name: 'Pelm TT', image: 'https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?w=200&h=200&fit=crop' },
+  { id: 'napoli', name: 'Grill & Pruul\nVanalinn', image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=300&h=300&fit=crop', promo: '-25%', boltPlus: true },
+  { id: 'sakura', name: 'Bolt Market\nPallasti', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=300&h=300&fit=crop', boltPlus: true },
+  { id: 'brgr', name: 'BurgerBros\nTallinn', image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=300&fit=crop', boltPlus: true },
+  { id: 'greenbox', name: 'Lendav\nTaldrik', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=300&fit=crop', boltPlus: true },
+  { id: 'pelm', name: 'Pelm TT\nKesklinn', image: 'https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?w=300&h=300&fit=crop', boltPlus: false },
 ];
 
 // Additional restaurants for more sections
@@ -65,19 +67,21 @@ export const moreRestaurants: Restaurant[] = [
     deliveryFee: 'Free delivery',
     eta: '35–50 min',
     image: 'https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?w=600&h=340&fit=crop',
-    promo: '20% OFF',
+    promo: '%',
+    boltPlus: true,
     menu: [],
   },
   {
     id: 'dodo',
-    name: 'Dodo Pizza',
+    name: 'Dodo Pizza Kesklinn',
     cuisine: 'Pizza · Fast food',
     rating: '4.5',
     reviews: '500+',
     deliveryFee: 'Free delivery',
     eta: '35–50 min',
     image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&h=340&fit=crop',
-    promo: '-20%',
+    promo: '%',
+    boltPlus: true,
     menu: [],
   },
   {
@@ -89,17 +93,21 @@ export const moreRestaurants: Restaurant[] = [
     deliveryFee: 'Free delivery',
     eta: '15–30 min',
     image: 'https://images.unsplash.com/photo-1619881590738-a111d176d906?w=600&h=340&fit=crop',
+    boltPlus: true,
     menu: [],
   },
   {
-    id: 'armudu',
-    name: 'Armudu Lootsi',
-    cuisine: 'Azerbaijani · Kebab',
+    id: 'amijami',
+    name: 'Amijami Sushi Ravi',
+    cuisine: 'Japanese · Sushi',
     rating: '4.8',
     reviews: '500+',
-    deliveryFee: 'Free delivery',
-    eta: '35–55 min',
-    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&h=340&fit=crop',
+    deliveryFee: '0,00 €',
+    originalFee: '1,90 €',
+    eta: '25–40 min',
+    image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&h=340&fit=crop',
+    promo: '%',
+    boltPlus: true,
     menu: [],
   },
   {
@@ -108,9 +116,11 @@ export const moreRestaurants: Restaurant[] = [
     cuisine: 'Pizza · Italian',
     rating: '4.9',
     reviews: '500+',
-    deliveryFee: '€0.00',
+    deliveryFee: '0,00 €',
+    originalFee: '1,90 €',
     eta: '40–55 min',
     image: 'https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=600&h=340&fit=crop',
+    boltPlus: true,
     menu: [],
   },
   {
@@ -122,6 +132,30 @@ export const moreRestaurants: Restaurant[] = [
     deliveryFee: '€2.80',
     eta: '35–50 min',
     image: 'https://images.unsplash.com/photo-1586816001966-79b736744398?w=600&h=340&fit=crop',
+    menu: [],
+  },
+  {
+    id: 'fitmeal',
+    name: 'Fit Meals',
+    cuisine: 'Healthy · Bowls',
+    rating: '4.8',
+    reviews: '500+',
+    deliveryFee: 'Free delivery',
+    eta: '10–20 min',
+    image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&h=340&fit=crop',
+    boltPlus: true,
+    menu: [],
+  },
+  {
+    id: 'kuusk',
+    name: 'Kuusk Hernesto',
+    cuisine: 'European · Fusion',
+    rating: '4.6',
+    reviews: '340',
+    deliveryFee: 'Free delivery',
+    eta: '15–25 min',
+    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&h=340&fit=crop',
+    boltPlus: true,
     menu: [],
   },
 ];
@@ -136,7 +170,8 @@ export const restaurants: Restaurant[] = [
     deliveryFee: 'Free delivery',
     eta: '15–25 min',
     image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&h=340&fit=crop',
-    promo: '20% OFF',
+    promo: '%',
+    boltPlus: true,
     menu: [
       {
         title: 'Popular',
