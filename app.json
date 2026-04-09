@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Delivery Design Sandbox",
+    "slug": "delivery-design-sandbox",
+    "version": "0.1.0",
+    "scheme": "delivery-sandbox",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": false,
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "baseUrl": "/delivery-design-sandbox"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ]
+  }
+}
