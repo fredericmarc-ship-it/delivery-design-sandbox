@@ -13,9 +13,8 @@ import {
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Svg, { Path, Circle as SvgCircle, Rect, Line } from 'react-native-svg';
-
 import { useBasket } from '../src/basket';
+import { BoltIcon } from '../src/components/Icon';
 import {
   categories,
   orderAgain,
@@ -91,142 +90,7 @@ const COL_GAP = 12;
 const ROW_GAP = 16;
 const CARD_W = (SW - SCREEN_PADDING_H * 2 - COL_GAP) / 2;
 
-// ════════════════════════════════════════════════════════════════
-// ── SVG Icons ─────────────────────────────────────────────────
-// ════════════════════════════════════════════════════════════════
-
-function IconPin({ size = 24, color = C.primary }: { size?: number; color?: string }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <Path
-        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
-        fill={color}
-      />
-      <SvgCircle cx="12" cy="9" r="2.5" fill="#FFFFFF" />
-    </Svg>
-  );
-}
-
-function IconSearch({ size = 24, color = C.primary }: { size?: number; color?: string }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <SvgCircle cx="11" cy="11" r="6" stroke={color} strokeWidth="2.2" />
-      <Line x1="16" y1="16" x2="21" y2="21" stroke={color} strokeWidth="2.2" strokeLinecap="round" />
-    </Svg>
-  );
-}
-
-function IconFilter({ size = 24, color = C.primary }: { size?: number; color?: string }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <Line x1="4" y1="6" x2="20" y2="6" stroke={color} strokeWidth="2" strokeLinecap="round" />
-      <Line x1="7" y1="12" x2="17" y2="12" stroke={color} strokeWidth="2" strokeLinecap="round" />
-      <Line x1="10" y1="18" x2="14" y2="18" stroke={color} strokeWidth="2" strokeLinecap="round" />
-    </Svg>
-  );
-}
-
-function IconStar({ size = 12, color = '#E8A100' }: { size?: number; color?: string }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill={color}>
-      <Path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-    </Svg>
-  );
-}
-
-function IconHeart({ size = 14, color = C.primary }: { size?: number; color?: string }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <Path
-        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </Svg>
-  );
-}
-
-function IconBicycle({ size = 14, color = C.secondary }: { size?: number; color?: string }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <SvgCircle cx="5.5" cy="17.5" r="3.5" stroke={color} strokeWidth="1.8" />
-      <SvgCircle cx="18.5" cy="17.5" r="3.5" stroke={color} strokeWidth="1.8" />
-      <Path d="M15 6h2l3 11.5" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M5.5 17.5L9 8h5l2 4H9" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </Svg>
-  );
-}
-
-function IconClock({ size = 14, color = C.secondary }: { size?: number; color?: string }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <SvgCircle cx="12" cy="12" r="9" stroke={color} strokeWidth="1.8" />
-      <Path d="M12 7v5l3 3" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </Svg>
-  );
-}
-
-function IconChevronRight({ size = 16, color = C.primary }: { size?: number; color?: string }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <Path d="M9 5l7 7-7 7" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-    </Svg>
-  );
-}
-
-// Tab bar icons
-function IconHome({ size = 24, filled = false, color = C.primary }: { size?: number; filled?: boolean; color?: string }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      {filled ? (
-        <Path d="M3 12l2-2V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V10l2 2 1.4-1.4L12 1 1.6 10.6 3 12z" fill={color} />
-      ) : (
-        <Path d="M3 12l2-2m0 0V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V10m-14 0l7-7 7 7m0 0l2 2" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      )}
-    </Svg>
-  );
-}
-
-function IconBasket({ size = 24, color = C.tertiary }: { size?: number; color?: string }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <Path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <Line x1="3" y1="6" x2="21" y2="6" stroke={color} strokeWidth="1.8" />
-      <Path d="M16 10a4 4 0 01-8 0" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </Svg>
-  );
-}
-
-function IconSearchTab({ size = 24, color = C.tertiary }: { size?: number; color?: string }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <SvgCircle cx="11" cy="11" r="7" stroke={color} strokeWidth="1.8" />
-      <Line x1="16.5" y1="16.5" x2="21" y2="21" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
-    </Svg>
-  );
-}
-
-function IconStore({ size = 24, color = C.tertiary }: { size?: number; color?: string }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <Path d="M3 21V10l1.5-7h15L21 10v11" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M3 10c0 1.66 1.34 3 3 3s3-1.34 3-3m0 0c0 1.66 1.34 3 3 3s3-1.34 3-3m0 0c0 1.66 1.34 3 3 3s3-1.34 3-3" stroke={color} strokeWidth="1.8" />
-      <Rect x="9" y="15" width="6" height="6" rx="1" stroke={color} strokeWidth="1.8" />
-    </Svg>
-  );
-}
-
-function IconAccount({ size = 24, color = C.tertiary }: { size?: number; color?: string }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <SvgCircle cx="12" cy="12" r="10" stroke={color} strokeWidth="1.8" />
-      <SvgCircle cx="12" cy="10" r="3" stroke={color} strokeWidth="1.8" />
-      <Path d="M6.17 18.35A7 7 0 0112 15a7 7 0 015.83 3.35" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
-    </Svg>
-  );
-}
+// Icons now come from bolticons.ttf via BoltIcon component
 
 // ════════════════════════════════════════════════════════════════
 // ── iPhone Status Bar Chrome ─────────────────────────────────
@@ -320,7 +184,7 @@ const sb = StyleSheet.create({
 function AddressBar() {
   return (
     <Pressable style={s.addressBar} accessibilityLabel="Change delivery address">
-      <IconPin size={24} color={C.primary} />
+      <BoltIcon name="pin-filled" size={24} color={C.primary} />
       <View style={s.addressText}>
         <T type="BodyMAccent">Veerenni Tänav 24/1</T>
         <T type="BodyXSRegular" color={C.secondary}>Tallinn</T>
@@ -336,12 +200,12 @@ function AddressBar() {
 function SearchBar() {
   return (
     <View style={s.searchBar}>
-      <IconSearch size={22} color={C.tertiary} />
+      <BoltIcon name="search" size={22} color={C.tertiary} />
       <T type="BodyMRegular" color={C.tertiary} style={s.searchPlaceholder}>
         Food, restaurants, stores...
       </T>
       <Pressable style={s.filterBtn} accessibilityLabel="Filters">
-        <IconFilter size={20} color={C.primary} />
+        <BoltIcon name="filter" size={20} color={C.primary} />
       </Pressable>
     </View>
   );
@@ -385,7 +249,7 @@ function SectionHeader({ title, subtitle }: { title: string; subtitle?: string }
       </View>
       <Pressable style={s.allBtn} accessibilityLabel={`See all ${title}`}>
         <T type="BodySRegular" color={C.primary}>All</T>
-        <IconChevronRight size={16} color={C.primary} />
+        <BoltIcon name="chevron-right" size={16} color={C.primary} />
       </Pressable>
     </View>
   );
@@ -418,7 +282,7 @@ function RatingBadge({
 }) {
   return (
     <View style={s.ratingBadge}>
-      <IconStar size={11} color="#E8A100" />
+      <BoltIcon name="star-filled" size={11} color="#E8A100" />
       <T type="TabXSAccent" color={C.primary} style={s.ratingValue}>
         {rating}
       </T>
@@ -450,7 +314,7 @@ function DeliveryInfo({
 
   return (
     <View style={s.deliveryRow}>
-      <IconBicycle size={14} color={C.secondary} />
+      <BoltIcon name="bicycle" size={14} color={C.secondary} />
       <T
         type="TabXSRegular"
         color={isFree ? C.actionPrimary : C.secondary}
@@ -468,7 +332,7 @@ function DeliveryInfo({
         </T>
       )}
       <View style={s.deliveryDot} />
-      <IconClock size={14} color={C.secondary} />
+      <BoltIcon name="clock" size={14} color={C.secondary} />
       <T type="TabXSRegular" color={C.secondary} style={s.deliveryEtaText}>
         {eta}
       </T>
@@ -526,7 +390,7 @@ function RestaurantCard({ restaurant, onPress }: { restaurant: Restaurant; onPre
 
         {/* Heart icon - top right, white circle */}
         <View style={s.heart}>
-          <IconHeart size={14} color={C.primary} />
+          <BoltIcon name="heart" size={14} color={C.primary} />
         </View>
 
         {/* Campaign badge - top left, red */}
@@ -632,60 +496,8 @@ function BasketBar({
   );
 }
 
-// ════════════════════════════════════════════════════════════════
-// ── Bottom Tab Bar ───────────────────────────────────────────
-// ════════════════════════════════════════════════════════════════
-
-const TAB_ITEMS = [
-  { key: 'home', label: 'Home' },
-  { key: 'stores', label: 'Stores' },
-  { key: 'search', label: 'Search' },
-  { key: 'dineout', label: 'DineOut' },
-  { key: 'account', label: 'Account' },
-] as const;
-
-function TabIcon({ tabKey, active }: { tabKey: string; active: boolean }) {
-  const color = active ? C.primary : C.tertiary;
-  switch (tabKey) {
-    case 'home':
-      return <IconHome size={24} filled={active} color={color} />;
-    case 'stores':
-      return <IconStore size={24} color={color} />;
-    case 'search':
-      return <IconSearchTab size={24} color={color} />;
-    case 'dineout':
-      return <IconStore size={24} color={color} />;
-    case 'account':
-      return <IconAccount size={24} color={color} />;
-    default:
-      return null;
-  }
-}
-
-function BottomTabBar({ activeTab, bottomInset }: { activeTab: string; bottomInset: number }) {
-  return (
-    <View style={[s.tabBar, { paddingBottom: Math.max(bottomInset, 8) }]}>
-      <View style={s.tabBorder} />
-      <View style={s.tabInner}>
-        {TAB_ITEMS.map((t) => {
-          const isActive = t.key === activeTab;
-          return (
-            <Pressable key={t.key} style={s.tab} accessibilityLabel={t.label}>
-              <TabIcon tabKey={t.key} active={isActive} />
-              <T
-                type="Body2XSRegular"
-                color={isActive ? C.primary : C.tertiary}
-                style={s.tabLabel}
-              >
-                {t.label}
-              </T>
-            </Pressable>
-          );
-        })}
-      </View>
-    </View>
-  );
-}
+// Bottom tab bar imported from shared components
+import { BottomTabBar } from '../src/components/BottomTabBar';
 
 // ════════════════════════════════════════════════════════════════
 // ── Home Screen ──────────────────────────────────────────────
@@ -752,7 +564,7 @@ export default function HomeScreen() {
         />
       )}
 
-      <BottomTabBar activeTab="home" bottomInset={insets.bottom} />
+      <BottomTabBar activeTab="Home" bottomInset={insets.bottom} />
     </View>
   );
 }
@@ -1001,18 +813,5 @@ const s = StyleSheet.create({
   },
   basketName: { flex: 1 },
 
-  /* ── Tab bar ── */
-  tabBar: { backgroundColor: C.floor0 },
-  tabBorder: { height: StyleSheet.hairlineWidth, backgroundColor: C.separator },
-  tabInner: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 6,
-  },
-  tab: {
-    alignItems: 'center',
-    paddingVertical: 4,
-    minWidth: 56,
-  },
-  tabLabel: { marginTop: 2 },
+  /* Tab bar styles are in BottomTabBar component */
 });
