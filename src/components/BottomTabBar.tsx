@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { BoltIcon } from './Icon';
 import { C, F } from './tokens';
 
 interface Tab {
@@ -11,11 +11,11 @@ interface Tab {
 }
 
 const TABS: Tab[] = [
-  { key: 'Home', label: 'Home', iconActive: 'home', iconInactive: 'home-outline' },
-  { key: 'Stores', label: 'Stores', iconActive: 'basket', iconInactive: 'basket-outline' },
-  { key: 'Search', label: 'Search', iconActive: 'search', iconInactive: 'search-outline' },
-  { key: 'DineOut', label: 'DineOut', iconActive: 'restaurant', iconInactive: 'restaurant-outline' },
-  { key: 'Account', label: 'Account', iconActive: 'person-circle', iconInactive: 'person-circle-outline' },
+  { key: 'Home', label: 'Home', iconActive: 'home-filled', iconInactive: 'home' },
+  { key: 'Stores', label: 'Stores', iconActive: 'basket-filled', iconInactive: 'basket' },
+  { key: 'Search', label: 'Search', iconActive: 'search-filled', iconInactive: 'search' },
+  { key: 'DineOut', label: 'DineOut', iconActive: 'order-filled', iconInactive: 'order' },
+  { key: 'Account', label: 'Account', iconActive: 'user-filled', iconInactive: 'user' },
 ];
 
 interface BottomTabBarProps {
@@ -25,7 +25,7 @@ interface BottomTabBarProps {
 
 export function BottomTabBar({ activeTab = 'Home', bottomInset }: BottomTabBarProps) {
   return (
-    <View style={[styles.container, { paddingBottom: bottomInset }]}>
+    <View style={[styles.container, { paddingBottom: Math.max(bottomInset, 8) }]}>
       {TABS.map((tab) => {
         const isActive = tab.key === activeTab;
         const color = isActive ? C.primary : C.tertiary;
@@ -38,7 +38,7 @@ export function BottomTabBar({ activeTab = 'Home', bottomInset }: BottomTabBarPr
             accessibilityLabel={tab.label}
             accessibilityRole="tab"
           >
-            <Ionicons name={iconName as any} size={24} color={color} />
+            <BoltIcon name={iconName} size={24} color={color} />
             <Text style={[F.BodyXSRegular, { color, marginTop: 2 }]}>{tab.label}</Text>
           </Pressable>
         );
