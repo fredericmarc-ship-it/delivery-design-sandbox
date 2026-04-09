@@ -1,19 +1,25 @@
 import { Stack } from 'expo-router';
-import { IntlProvider } from 'react-intl';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import { BasketProvider } from '../src/basket';
 
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
-      <IntlProvider locale="en" messages={{}}>
+      <BasketProvider>
         <Stack
           screenOptions={{
-            headerStyle: { backgroundColor: '#2B8659' },
-            headerTintColor: '#fff',
-            headerTitleStyle: { fontWeight: '600' },
+            headerShown: false,
+            contentStyle: { backgroundColor: '#fff' },
+            animation: 'slide_from_right',
           }}
-        />
-      </IntlProvider>
+        >
+          <Stack.Screen name="index" />
+          <Stack.Screen name="provider/[id]" />
+          <Stack.Screen name="checkout" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="tracking" options={{ gestureEnabled: false }} />
+        </Stack>
+      </BasketProvider>
     </SafeAreaProvider>
   );
 }
