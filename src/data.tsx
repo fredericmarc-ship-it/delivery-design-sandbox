@@ -26,13 +26,104 @@ export interface Restaurant {
 }
 
 export const categories = [
-  { id: 'all', label: 'All', icon: '🍽️' },
+  { id: 'groceries', label: 'Groceries', icon: '🛒' },
   { id: 'pizza', label: 'Pizza', icon: '🍕' },
-  { id: 'sushi', label: 'Sushi', icon: '🍣' },
   { id: 'burger', label: 'Burgers', icon: '🍔' },
-  { id: 'healthy', label: 'Healthy', icon: '🥗' },
+  { id: 'alcohol', label: 'Alcohol', icon: '🍾' },
+  { id: 'sushi', label: 'Sushi', icon: '🍣' },
   { id: 'dessert', label: 'Desserts', icon: '🍰' },
-  { id: 'coffee', label: 'Coffee', icon: '☕' },
+];
+
+// "Order again" section — recent merchants
+export const orderAgain = [
+  { id: 'napoli', name: 'Napoli Express', image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=200&h=200&fit=crop' },
+  { id: 'sakura', name: 'Sakura Sushi', image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=200&h=200&fit=crop' },
+  { id: 'greenbox', name: 'Green Box', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=200&fit=crop' },
+  { id: 'brgr', name: 'BRGR Factory', image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&h=200&fit=crop' },
+  { id: 'pelm', name: 'Pelm TT', image: 'https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?w=200&h=200&fit=crop' },
+];
+
+// Additional restaurants for more sections
+export const moreRestaurants: Restaurant[] = [
+  {
+    id: 'brgr',
+    name: 'BRGR Factory',
+    cuisine: 'Burgers · American',
+    rating: '4.7',
+    reviews: '320',
+    deliveryFee: '€1.99',
+    eta: '20–30 min',
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=340&fit=crop',
+    menu: [],
+  },
+  {
+    id: 'pelm',
+    name: 'Pelm Kristiine',
+    cuisine: 'Russian · Dumplings',
+    rating: '4.7',
+    reviews: '500+',
+    deliveryFee: 'Free delivery',
+    eta: '35–50 min',
+    image: 'https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?w=600&h=340&fit=crop',
+    promo: '20% OFF',
+    menu: [],
+  },
+  {
+    id: 'dodo',
+    name: 'Dodo Pizza',
+    cuisine: 'Pizza · Fast food',
+    rating: '4.5',
+    reviews: '500+',
+    deliveryFee: 'Free delivery',
+    eta: '35–50 min',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&h=340&fit=crop',
+    promo: '-20%',
+    menu: [],
+  },
+  {
+    id: 'mcdonalds',
+    name: "McDonald's Viru",
+    cuisine: 'Fast food · Burgers',
+    rating: '4.4',
+    reviews: '500+',
+    deliveryFee: 'Free delivery',
+    eta: '15–30 min',
+    image: 'https://images.unsplash.com/photo-1619881590738-a111d176d906?w=600&h=340&fit=crop',
+    menu: [],
+  },
+  {
+    id: 'armudu',
+    name: 'Armudu Lootsi',
+    cuisine: 'Azerbaijani · Kebab',
+    rating: '4.8',
+    reviews: '500+',
+    deliveryFee: 'Free delivery',
+    eta: '35–55 min',
+    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&h=340&fit=crop',
+    menu: [],
+  },
+  {
+    id: 'pizzaam',
+    name: 'Pizza Americana',
+    cuisine: 'Pizza · Italian',
+    rating: '4.9',
+    reviews: '500+',
+    deliveryFee: '€0.00',
+    eta: '40–55 min',
+    image: 'https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=600&h=340&fit=crop',
+    menu: [],
+  },
+  {
+    id: 'minimoo',
+    name: 'MiniMoo',
+    cuisine: 'Burgers · Milkshakes',
+    rating: '4.6',
+    reviews: '280',
+    deliveryFee: '€2.80',
+    eta: '35–50 min',
+    image: 'https://images.unsplash.com/photo-1586816001966-79b736744398?w=600&h=340&fit=crop',
+    menu: [],
+  },
 ];
 
 export const restaurants: Restaurant[] = [
