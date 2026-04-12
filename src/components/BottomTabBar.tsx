@@ -1,24 +1,19 @@
 import React from 'react';
-import { View, Text, Pressable, StyleSheet, Image } from 'react-native';
-import { BoltIcon } from './Icon';
+import { View, Text, Pressable, StyleSheet, Image, ImageSourcePropType } from 'react-native';
 import { C, F } from './tokens';
-
-const DINEOUT_ICON = require('../../assets/images/ic-dineout.png');
 
 interface Tab {
   key: string;
   label: string;
-  iconActive: string;
-  iconInactive: string;
-  useImage?: boolean;
+  icon: ImageSourcePropType;
 }
 
 const TABS: Tab[] = [
-  { key: 'Home', label: 'Home', iconActive: 'home-filled', iconInactive: 'home' },
-  { key: 'Stores', label: 'Stores', iconActive: 'basket-filled', iconInactive: 'basket' },
-  { key: 'Search', label: 'Search', iconActive: 'search-filled', iconInactive: 'search' },
-  { key: 'DineOut', label: 'DineOut', iconActive: 'dineout', iconInactive: 'dineout', useImage: true },
-  { key: 'Account', label: 'Account', iconActive: 'user-filled', iconInactive: 'user' },
+  { key: 'Home', label: 'Home', icon: require('../../assets/images/ic-home.png') },
+  { key: 'Stores', label: 'Stores', icon: require('../../assets/images/ic-groceries.png') },
+  { key: 'Search', label: 'Search', icon: require('../../assets/images/ic-search.png') },
+  { key: 'DineOut', label: 'DineOut', icon: require('../../assets/images/ic-dineout.png') },
+  { key: 'Account', label: 'Account', icon: require('../../assets/images/ic-user.png') },
 ];
 
 interface BottomTabBarProps {
@@ -40,14 +35,10 @@ export function BottomTabBar({ activeTab = 'Home', bottomInset }: BottomTabBarPr
             accessibilityLabel={tab.label}
             accessibilityRole="tab"
           >
-            {tab.useImage ? (
-              <Image
-                source={DINEOUT_ICON}
-                style={[styles.tabIcon, { tintColor: color }]}
-              />
-            ) : (
-              <BoltIcon name={isActive ? tab.iconActive : tab.iconInactive} size={24} color={color} />
-            )}
+            <Image
+              source={tab.icon}
+              style={[styles.tabIcon, { tintColor: color }]}
+            />
             <Text style={[F.BodyXSRegular, { color, marginTop: 2 }]}>{tab.label}</Text>
           </Pressable>
         );
