@@ -177,14 +177,14 @@ function SectionHeader({ title, subtitle }: { title: string; subtitle?: string }
   return (
     <View style={s.sectionHdr}>
       <View style={s.sectionHdrLeft}>
-        <T type="HeadingS">{title}</T>
+        <T type="HeadingXS">{title}</T>
         {subtitle != null && (
           <T type="BodyXSRegular" color={C.secondary} style={s.sectionSubtitle}>{subtitle}</T>
         )}
       </View>
       <Pressable style={s.allBtn} accessibilityLabel={`See all ${title}`}>
-        <T type="BodySRegular" color={C.primary}>All</T>
-        <BoltIcon name="chevron-right" size={16} color={C.primary} />
+        <T type="BodySAccent" color={C.primary}>All</T>
+        <BoltIcon name="chevron-right" size={18} color={C.primary} />
       </Pressable>
     </View>
   );
@@ -249,28 +249,30 @@ function DeliveryInfo({
 
   return (
     <View style={s.deliveryRow}>
-      <BoltIcon name="bicycle" size={14} color={C.secondary} />
-      <T
-        type="TabXSRegular"
-        color={isFree ? C.actionPrimary : C.secondary}
-        style={s.deliveryFeeText}
-      >
-        {feeLabel}
-      </T>
-      {originalFee != null && (
+      <View style={s.deliveryBlock}>
+        <BoltIcon name="bicycle" size={12} color={C.secondary} />
         <T
-          type="TabXSRegular"
-          color={C.tertiary}
-          style={s.deliveryOriginalFee}
+          type="BodyXSRegular"
+          color={isFree ? C.actionPrimary : C.secondary}
         >
-          {originalFee}
+          {feeLabel}
         </T>
-      )}
-      <View style={s.deliveryDot} />
-      <BoltIcon name="clock" size={14} color={C.secondary} />
-      <T type="TabXSRegular" color={C.secondary} style={s.deliveryEtaText}>
-        {eta}
-      </T>
+        {originalFee != null && (
+          <T
+            type="BodyXSRegular"
+            color={C.tertiary}
+            style={s.deliveryOriginalFee}
+          >
+            {originalFee}
+          </T>
+        )}
+      </View>
+      <View style={s.deliveryBlock}>
+        <BoltIcon name="clock" size={12} color={C.secondary} />
+        <T type="BodyXSRegular" color={C.secondary}>
+          {eta}
+        </T>
+      </View>
     </View>
   );
 }
@@ -320,28 +322,32 @@ function OrderAgainRow({ onPress }: { onPress: (id: string) => void }) {
 function RestaurantCard({ restaurant, onPress }: { restaurant: Restaurant; onPress: () => void }) {
   return (
     <Pressable style={s.card} onPress={onPress} accessibilityLabel={restaurant.name}>
+      {/* Image with 2:1 ratio */}
       <View style={s.cardImgWrap}>
         <Image source={{ uri: restaurant.image }} style={s.cardImg} />
 
-        {/* Heart icon - top right, no background */}
-        <Pressable style={s.heart} accessibilityLabel="Save to favourites">
-          <Image source={require('../assets/images/ic-heart.png')} style={s.heartIcon} />
-        </Pressable>
+        {/* Content layer — 8px margin from image edges (production M size) */}
+        <View style={s.cardImgContent}>
+          {/* Campaign badge — top left */}
+          {restaurant.promo != null && (
+            <View style={s.campaignBadge}>
+              <RNText style={s.campaignText}>{restaurant.promo}</RNText>
+            </View>
+          )}
 
-        {/* Campaign badge - top left, red */}
-        {restaurant.promo != null && (
-          <View style={s.campaignBadge}>
-            <RNText style={s.campaignText}>{restaurant.promo}</RNText>
+          {/* Heart — top right, 24px, white PNG */}
+          <Pressable style={s.heart} accessibilityLabel="Save to favourites">
+            <Image source={require('../assets/images/ic-heart.png')} style={s.heartIcon} />
+          </Pressable>
+
+          {/* Rating badge — bottom right */}
+          <View style={s.ratingPillWrap}>
+            <RatingBadge rating={restaurant.rating} reviews={restaurant.reviews} size="small" />
           </View>
-        )}
-
-        {/* Rating badge - bottom right, yellow bg */}
-        <View style={s.ratingPillWrap}>
-          <RatingBadge rating={restaurant.rating} reviews={restaurant.reviews} size="small" />
         </View>
       </View>
 
-      {/* Card body below image */}
+      {/* Details below image — 4px top gap (production M size) */}
       <View style={s.cardBody}>
         <View style={s.nameRow}>
           <T type="BodyMAccent" numberOfLines={1} style={s.nameText}>
@@ -749,8 +755,8 @@ const s = StyleSheet.create({
   catRow: {
     paddingHorizontal: SCREEN_PADDING_H,
     paddingTop: 12,
-    paddingBottom: 4,
-    gap: 16,
+    paddingBottom: 24,
+    gap: 12,
   },
   catItem: { alignItems: 'center', width: 72 },
   catCircle: {
@@ -765,21 +771,24 @@ const s = StyleSheet.create({
   catEmoji: { fontSize: 30 },
   catLabel: { textAlign: 'center' },
 
-  /* ── Section header ── */
+  /* ── Section header (production: SectionHeader.tsx size M) ── */
   sectionHdr: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
     paddingHorizontal: SCREEN_PADDING_H,
     paddingTop: 28,
     paddingBottom: 14,
+    gap: 12,
   },
-  sectionHdrLeft: { flex: 1 },
-  sectionSubtitle: { marginTop: 2 },
+  sectionHdrLeft: { flex: 1, gap: 4 },
+  sectionSubtitle: {},
   allBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 2,
+    height: 20,
+    gap: 4,
+    marginTop: 4,
   },
 
   /* ── Bolt Plus badge ── */
@@ -826,7 +835,7 @@ const s = StyleSheet.create({
   gridRow: { flexDirection: 'row', gap: COL_GAP },
   gridSpacer: { width: CARD_W },
 
-  /* ── Restaurant card ── */
+  /* ── Restaurant card (production: ProviderCard.tsx size M) ── */
   card: { width: CARD_W },
   cardImgWrap: {
     width: '100%',
@@ -835,43 +844,46 @@ const s = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: C.bgNeutralSecondary,
   },
-  cardImg: { width: '100%', height: '100%' },
+  cardImg: { ...StyleSheet.absoluteFillObject, width: '100%', height: '100%' },
+  cardImgContent: {
+    ...StyleSheet.absoluteFillObject,
+    margin: 8,
+  },
 
-  // Heart icon - top right, no background
+  // Heart — absolute top:0 right:0 within 8px content margin, 24px
   heart: {
     position: 'absolute',
-    top: 8,
-    right: 8,
-    width: 28,
-    height: 28,
+    top: 0,
+    right: 0,
+    width: 24,
+    height: 24,
     alignItems: 'center',
     justifyContent: 'center',
   },
   heartIcon: {
-    width: 20,
-    height: 20,
+    width: 24,
+    height: 24,
     tintColor: '#FFFFFF',
   },
 
-  // Campaign badge - red, top left
+  // Campaign badge — absolute top:0 left:0 within content margin
   campaignBadge: {
     position: 'absolute',
-    top: 8,
-    left: 8,
+    top: 0,
+    left: 0,
     backgroundColor: C.bgDangerPrimary,
     borderRadius: 4,
     paddingHorizontal: 6,
-    paddingVertical: 4,
-    minWidth: 24,
+    paddingVertical: 2,
     alignItems: 'center',
   },
-  campaignText: { color: '#fff', fontSize: 12, fontWeight: '800' },
+  campaignText: { color: '#fff', fontSize: 12, fontWeight: '700' },
 
-  // Rating badge wrap - positioned bottom right of image
+  // Rating badge — absolute bottom:0 right:0 within content margin
   ratingPillWrap: {
     position: 'absolute',
-    bottom: 8,
-    right: 8,
+    bottom: 0,
+    right: 0,
   },
   ratingBadge: {
     flexDirection: 'row',
@@ -884,33 +896,28 @@ const s = StyleSheet.create({
   },
   ratingValue: { marginLeft: 1 },
 
-  // Card body
-  cardBody: { paddingTop: 4, paddingBottom: 4 },
+  // Card body — 4px topGap (production M size)
+  cardBody: { paddingTop: 4 },
   nameRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 2,
   },
-  nameText: { flexShrink: 1 },
+  nameText: { flexShrink: 1, flexGrow: 0, minWidth: 0 },
 
-  // Delivery info row
+  // Delivery info (production: DeliveryInfo.tsx size M — gap 8px, 12px icons)
   deliveryRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 8,
   },
-  deliveryFeeText: { marginLeft: 3 },
+  deliveryBlock: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
   deliveryOriginalFee: {
-    marginLeft: 4,
     textDecorationLine: 'line-through',
   },
-  deliveryDot: {
-    width: 3,
-    height: 3,
-    borderRadius: 1.5,
-    backgroundColor: C.tertiary,
-    marginHorizontal: 6,
-  },
-  deliveryEtaText: { marginLeft: 3 },
 
   /* ── (retail snippet styles in rs StyleSheet above) ── */
 
