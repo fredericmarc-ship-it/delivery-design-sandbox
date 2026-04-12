@@ -108,7 +108,7 @@ function HeroBanner() {
 
       {/* Address selector — overlaid top-left */}
       <Pressable style={s.addressBar} accessibilityLabel="Change delivery address">
-        <BoltIcon name="pin-filled" size={20} color={C.primary} />
+        <BoltIcon name="location-pin-filled" size={20} color={C.primary} />
         <View style={s.addressText}>
           <T type="BodySAccent">Rotermanni 6</T>
           <T type="BodyXSRegular" color={C.secondary}>Tallinn, Estonia</T>
@@ -120,7 +120,7 @@ function HeroBanner() {
         <T type="HeadingS">Free delivery{'\n'}with Bolt Plus</T>
         <Pressable style={s.heroAction} accessibilityLabel="Join Bolt Plus">
           <T type="BodySAccent">Join now</T>
-          <BoltIcon name="chevron-right" size={16} color={C.primary} />
+          <BoltIcon name="arrow-circle-right" size={16} color={C.primary} />
         </Pressable>
       </View>
     </View>
