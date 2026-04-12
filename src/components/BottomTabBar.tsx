@@ -14,7 +14,7 @@ const TABS: Tab[] = [
   { key: 'Home', label: 'Home', iconActive: 'home-filled', iconInactive: 'home' },
   { key: 'Stores', label: 'Stores', iconActive: 'basket-filled', iconInactive: 'basket' },
   { key: 'Search', label: 'Search', iconActive: 'search-filled', iconInactive: 'search' },
-  { key: 'Orders', label: 'Orders', iconActive: 'order-filled', iconInactive: 'order' },
+  { key: 'DineOut', label: 'DineOut', iconActive: 'order-filled', iconInactive: 'order' },
   { key: 'Account', label: 'Account', iconActive: 'user-filled', iconInactive: 'user' },
 ];
 

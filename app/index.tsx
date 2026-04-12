@@ -98,7 +98,7 @@ const CARD_W = (SW - SCREEN_PADDING_H * 2 - COL_GAP) / 2;
 // ── Hero Banner (top section from Figma) ─────────────────────
 // ════════════════════════════════════════════════════════════════
 
-const HERO_ILLUSTRATION = 'https://www.figma.com/api/mcp/asset/b4c99fc2-10da-4bc5-aee1-2990f72679b2';
+const HERO_ILLUSTRATION = 'https://www.figma.com/api/mcp/asset/cf088890-2acc-4a89-a83e-d9e4677a7b21';
 
 function HeroBanner() {
   return (
@@ -828,14 +828,7 @@ const s = StyleSheet.create({
   gridSpacer: { width: CARD_W },
 
   /* ── Restaurant card ── */
-  card: {
-    width: CARD_W,
-    shadowColor: '#000',
-    shadowOpacity: 0.16,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    elevation: 2,
-  },
+  card: { width: CARD_W },
   cardImgWrap: {
     width: '100%',
     aspectRatio: 2,
