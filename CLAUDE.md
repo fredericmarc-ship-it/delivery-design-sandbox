@@ -399,3 +399,21 @@ Structure:
 8. **Accessibility basics.** Include `accessibilityLabel` on interactive elements and images. Use semantic color tokens (not raw hex values) so contrast ratios are maintained.
 9. **Euro currency.** Default to € for prices unless the designer specifies another currency.
 10. **Status bar.** The sandbox includes `StatusBarChrome` in `src/components/` for iPhone status bar mockups in prototypes.
+
+---
+
+## Deployment
+
+This project auto-deploys to Vercel when pushed to the `personal` remote.
+
+- **Live URL**: https://delivery-design-sandbox.vercel.app
+- **Framed URL**: https://delivery-design-sandbox.vercel.app/frame.html
+- **Private source (Boltable)**: `git push origin main`
+- **Public deploy (Vercel)**: `git push personal main`
+
+To deploy after making changes:
+
+```bash
+git push origin main      # private repo
+git push personal main    # triggers Vercel deploy
+```
