@@ -477,8 +477,8 @@ export default function HomeScreen() {
 
   return (
     <View style={s.root}>
-      {/* Safe area top spacer */}
-      <View style={{ height: insets.top, backgroundColor: C.floor0 }} />
+      {/* Safe area top spacer — min 54px so content clears the frame's dynamic island on web */}
+      <View style={{ height: Math.max(insets.top, 54), backgroundColor: C.floor0 }} />
 
       <ScrollView
         showsVerticalScrollIndicator={false}
