@@ -38,7 +38,7 @@ const C = {
   bgActiveActionPrimary: '#18784C',
   bgNeutralPrimary: '#0E1010',
   bgDangerPrimary: '#DE1929',
-  bgWarningSecondary: 'rgba(255,190,0,0.23)',
+  bgWarningSecondary: '#FFF0C4',
   bgPromoSecondary: 'rgba(0,60,255,0.07)',
   separator: 'rgba(0,45,30,0.07)',
   primaryInverted: 'rgba(253,255,254,0.93)',
@@ -449,18 +449,38 @@ function RestaurantGrid({ items, onPress }: { items: Restaurant[]; onPress: (id:
 // ── Promo Banner ─────────────────────────────────────────────
 // ════════════════════════════════════════════════════════════════
 
+const GROCERY_ITEMS = [
+  { image: 'https://images.unsplash.com/photo-1553909489-cd47e0907980?w=200&h=200&fit=crop', discount: '-30%', price: '1,93 €' },
+  { image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=200&h=200&fit=crop', discount: '-20%', price: '1,40 €' },
+  { image: 'https://images.unsplash.com/photo-1622485831930-6e9e5b13ae40?w=200&h=200&fit=crop', discount: '-25%', price: '2,39 €' },
+];
+
 function PromoBanner() {
   return (
-    <View style={s.promoBanner}>
-      <View style={s.promoContent}>
-        <T type="BodyMAccent" color="#FFFFFF">Get a Red Bull for a chance to win!</T>
-        <T type="BodyXSRegular" color="rgba(255,255,255,0.8)" style={s.promoDesc}>
-          Add a Red Bull to your meal and enter automatically to win 100 EUR of Red Bull shop credit
-        </T>
+    <View style={s.promoWrap}>
+      <View style={s.promoHeader}>
+        <T type="BodyMAccent" color={C.primary}>Full cart, happy wallet</T>
+        <View style={s.promoBoltMarket}>
+          <T type="BodyXSAccent" color={C.primary}>Bolt Market</T>
+        </View>
       </View>
-      <View style={s.promoCta}>
-        <T type="BodySAccent" color={C.primary}>See offers</T>
-      </View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={s.promoItemsRow}
+      >
+        {GROCERY_ITEMS.map((item, i) => (
+          <View key={i} style={s.promoItem}>
+            <View style={s.promoItemImgWrap}>
+              <Image source={{ uri: item.image }} style={s.promoItemImg} />
+              <View style={s.promoDiscount}>
+                <RNText style={s.promoDiscountText}>{item.discount}</RNText>
+              </View>
+            </View>
+            <T type="TabXSAccent" color={C.primary} style={s.promoItemPrice}>{item.price}</T>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 }
@@ -523,17 +543,15 @@ export default function HomeScreen() {
     <View style={s.root}>
       {/* Safe area top spacer */}
       <View style={{ height: insets.top, backgroundColor: C.floor0 }} />
-      <StatusBarChrome />
 
-      {/* Sticky header */}
-      <AddressBar />
-      <SearchBar />
-
-      {/* Scrollable content */}
+      {/* Everything scrolls together — nothing pinned */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={s.scrollContent}
       >
+        <StatusBarChrome />
+        <AddressBar />
+        <SearchBar />
         <CategoryRow />
 
         <SectionHeader title="Order again" />
@@ -774,24 +792,55 @@ const s = StyleSheet.create({
   deliveryEtaText: { marginLeft: 3 },
 
   /* ── Promo banner ── */
-  promoBanner: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  promoWrap: {
     marginHorizontal: SCREEN_PADDING_H,
     marginTop: 28,
-    padding: 16,
+    backgroundColor: '#F2F4F3',
     borderRadius: DEFAULT_BORDER_RADIUS,
-    backgroundColor: '#003366',
+    paddingTop: 16,
+    paddingBottom: 12,
+    overflow: 'hidden',
+  },
+  promoHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    marginBottom: 12,
+  },
+  promoBoltMarket: {
+    backgroundColor: C.bgNeutralSecondary,
+    borderRadius: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  },
+  promoItemsRow: {
+    paddingHorizontal: 16,
     gap: 12,
   },
-  promoContent: { flex: 1 },
-  promoDesc: { marginTop: 4 },
-  promoCta: {
-    backgroundColor: '#C8E6FF',
-    borderRadius: DEFAULT_BORDER_RADIUS,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+  promoItem: {
+    width: 96,
+    alignItems: 'center',
   },
+  promoItemImgWrap: {
+    width: 96,
+    height: 96,
+    borderRadius: DEFAULT_BORDER_RADIUS,
+    overflow: 'hidden',
+    backgroundColor: C.floor0,
+  },
+  promoItemImg: { width: '100%', height: '100%' },
+  promoDiscount: {
+    position: 'absolute',
+    top: 6,
+    left: 6,
+    backgroundColor: C.bgDangerPrimary,
+    borderRadius: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+  },
+  promoDiscountText: { color: '#fff', fontSize: 11, fontWeight: '700' },
+  promoItemPrice: { marginTop: 4 },
 
   /* ── Basket bar ── */
   basketBar: {

@@ -46,7 +46,7 @@ export const C = {
   bgDangerPrimary: '#DE1929',
   bgDangerSecondary: 'rgba(255,0,0,0.08)',
   bgWarningPrimary: '#FFB200',
-  bgWarningSecondary: 'rgba(255,190,0,0.23)',
+  bgWarningSecondary: '#FFF0C4',
   bgPositivePrimary: '#2B8659',
   bgPositiveSecondary: 'rgba(0,160,64,0.09)',
   bgPromoPrimary: '#5966F3',
