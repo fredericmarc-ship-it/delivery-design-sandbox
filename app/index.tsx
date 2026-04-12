@@ -665,7 +665,14 @@ const s = StyleSheet.create({
   gridSpacer: { width: CARD_W },
 
   /* ── Restaurant card ── */
-  card: { width: CARD_W },
+  card: {
+    width: CARD_W,
+    shadowColor: '#000',
+    shadowOpacity: 0.16,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 2,
+  },
   cardImgWrap: {
     width: '100%',
     aspectRatio: 2,
