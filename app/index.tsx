@@ -102,7 +102,8 @@ function StatusBarChrome() {
       <View style={sb.left}>
         <RNText style={sb.time}>15:31</RNText>
       </View>
-      <View style={sb.island} />
+      {/* Dynamic island is rendered by frame.html — no duplicate here */}
+      <View style={sb.islandSpacer} />
       <View style={sb.right}>
         <View style={sb.signal}>
           <View style={[sb.dot, sb.dotFilled]} />
@@ -136,11 +137,9 @@ const sb = StyleSheet.create({
   },
   left: { width: 80, alignItems: 'flex-start' },
   time: { fontSize: 16, fontWeight: '600', color: C.primary, letterSpacing: 0.2 },
-  island: {
+  islandSpacer: {
     width: 126,
     height: 36,
-    borderRadius: 18,
-    backgroundColor: '#000',
   },
   right: { width: 80, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 6 },
   signal: { flexDirection: 'row', alignItems: 'center', gap: 2 },
@@ -544,12 +543,13 @@ export default function HomeScreen() {
       {/* Safe area top spacer */}
       <View style={{ height: insets.top, backgroundColor: C.floor0 }} />
 
-      {/* Everything scrolls together — nothing pinned */}
+      {/* Status bar stays fixed — the rest scrolls */}
+      <StatusBarChrome />
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={s.scrollContent}
       >
-        <StatusBarChrome />
         <AddressBar />
         <SearchBar />
         <CategoryRow />
