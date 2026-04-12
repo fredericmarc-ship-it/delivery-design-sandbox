@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import {
   Dimensions,
-  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -52,8 +51,8 @@ const SCREEN_PADDING_H = 24;
 const DEFAULT_BORDER_RADIUS = 8;
 
 // ── Typography ───────────────────────────────────────────────────
-const FONT_REGULAR = Platform.select({ web: 'InterVariable', default: 'System' });
-const FONT_ACCENT = Platform.select({ web: 'InterVariable', default: 'System' });
+const FONT_REGULAR = 'System';
+const FONT_ACCENT = 'System';
 
 const F: Record<string, TextStyle> = {
   HeadingL:     { fontSize: 36, lineHeight: 44, fontWeight: '650' as any, letterSpacing: -0.792 },
@@ -98,13 +97,13 @@ const CARD_W = (SW - SCREEN_PADDING_H * 2 - COL_GAP) / 2;
 // ── Hero Banner (top section from Figma) ─────────────────────
 // ════════════════════════════════════════════════════════════════
 
-const HERO_ILLUSTRATION = 'https://www.figma.com/api/mcp/asset/cf088890-2acc-4a89-a83e-d9e4677a7b21';
+const HERO_ILLUSTRATION = require('../assets/images/hero-illustration.png');
 
 function HeroBanner() {
   return (
     <View style={s.hero}>
       {/* Background illustration */}
-      <Image source={{ uri: HERO_ILLUSTRATION }} style={s.heroIllustration} contentFit="cover" />
+      <Image source={HERO_ILLUSTRATION} style={s.heroIllustration} contentFit="cover" />
 
       {/* Address selector — overlaid top-left */}
       <Pressable style={s.addressBar} accessibilityLabel="Change delivery address">
@@ -385,10 +384,10 @@ function RestaurantGrid({ items, onPress }: { items: Restaurant[]; onPress: (id:
 // ── Retail Snippet (Bolt Market section from Figma) ──────────
 // ════════════════════════════════════════════════════════════════
 
-const STORE_LOGO = 'https://www.figma.com/api/mcp/asset/fe8ae5eb-9be4-49ac-a6d8-981f6f08ffab';
+const STORE_LOGO = require('../assets/images/store-logo.png');
 
 interface GroceryProduct {
-  image: string;
+  image: number;
   price: string;
   originalPrice?: string;
   name: string;
@@ -398,12 +397,12 @@ interface GroceryProduct {
 
 const GROCERY_PRODUCTS: GroceryProduct[] = [
   {
-    image: 'https://www.figma.com/api/mcp/asset/15aa7af0-965f-4b51-bfba-5a7be6b4b0e9',
+    image: require('../assets/images/product-1.png'),
     price: '1,50 €', name: 'Bananas, 1 kg', unitPrice: '1,50 €/kg',
     labels: [{ text: 'New', color: '#FFB200', textColor: C.primary }],
   },
   {
-    image: 'https://www.figma.com/api/mcp/asset/d3eead6e-4272-4715-a13a-d47b14d2cad4',
+    image: require('../assets/images/product-2.png'),
     price: '1,50 €', originalPrice: '3,50 €', name: 'Oddly Good Barista Oat', unitPrice: '200,78 lei/kg',
     labels: [
       { text: 'New', color: '#FFB200', textColor: C.primary },
@@ -411,11 +410,11 @@ const GROCERY_PRODUCTS: GroceryProduct[] = [
     ],
   },
   {
-    image: 'https://www.figma.com/api/mcp/asset/a7af8eb4-6fe0-4679-871a-144134b50914',
+    image: require('../assets/images/product-3.png'),
     price: '1,50 €', name: 'Lemons, 500 g', unitPrice: '3,00 €/kg',
   },
   {
-    image: 'https://www.figma.com/api/mcp/asset/d14c3003-4b07-4966-b43f-a2a474cbafbb',
+    image: require('../assets/images/product-4.png'),
     price: '1,50 €', originalPrice: '3,50 €', name: 'Greek Yogurt, 400 g', unitPrice: '3,75 €/kg',
     labels: [
       { text: 'New', color: '#FFB200', textColor: C.primary },
@@ -423,7 +422,7 @@ const GROCERY_PRODUCTS: GroceryProduct[] = [
     ],
   },
   {
-    image: 'https://www.figma.com/api/mcp/asset/69476aaa-f002-4c6a-90f8-5f9656a229ad',
+    image: require('../assets/images/product-5.png'),
     price: '1,50 €', name: 'Chocolate Croissant', unitPrice: '200,78 lei/kg',
     labels: [{ text: 'Sweet', color: '#FFB200', textColor: C.primary }],
   },
@@ -435,7 +434,7 @@ function RetailSnippet() {
       {/* Store header */}
       <View style={rs.header}>
         <View style={rs.logoWrap}>
-          <Image source={{ uri: STORE_LOGO }} style={rs.logo} />
+          <Image source={STORE_LOGO} style={rs.logo} />
           <View style={rs.logoOverlay} />
         </View>
         <View style={rs.headerText}>
@@ -464,7 +463,7 @@ function RetailSnippet() {
           <View key={i} style={rs.productCard}>
             {/* Image block */}
             <View style={rs.imgBlock}>
-              <Image source={{ uri: product.image }} style={rs.productImg} contentFit="cover" />
+              <Image source={product.image} style={rs.productImg} contentFit="cover" />
               <View style={rs.imgTint} />
               {/* Labels */}
               {product.labels != null && (

@@ -99,8 +99,9 @@ const FONT_REGULAR = '400' as const;
 const FONT_ACCENT = '600' as const;
 
 const OT_BASE = {
-  fontFamily: 'InterVariable',
-  // React Native web supports fontFeatureSettings; native uses via expo-font
+  fontFamily: 'System',
+  // Use system font (San Francisco on iOS, Roboto on Android).
+  // InterVariable is not bundled — 'System' avoids serif fallback on web.
 };
 
 export const F = {

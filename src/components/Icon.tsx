@@ -172,6 +172,8 @@ const GLYPHS: Record<string, number> = {
   'on-foot': 0xe97c,
   'order': 0xe97a,
   'order-filled': 0xe97e,
+  'dineout': 0xea1b,
+  'dineout-filled': 0xea1c,
   'parking': 0xe986,
   'parking-circle': 0xe9b4,
   'parking-circle-no': 0xe9b5,
