@@ -1,20 +1,23 @@
 import React from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet, Image } from 'react-native';
 import { BoltIcon } from './Icon';
 import { C, F } from './tokens';
+
+const DINEOUT_ICON = require('../../assets/images/ic-dineout.png');
 
 interface Tab {
   key: string;
   label: string;
   iconActive: string;
   iconInactive: string;
+  useImage?: boolean;
 }
 
 const TABS: Tab[] = [
   { key: 'Home', label: 'Home', iconActive: 'home-filled', iconInactive: 'home' },
   { key: 'Stores', label: 'Stores', iconActive: 'basket-filled', iconInactive: 'basket' },
   { key: 'Search', label: 'Search', iconActive: 'search-filled', iconInactive: 'search' },
-  { key: 'DineOut', label: 'DineOut', iconActive: 'dineout-filled', iconInactive: 'dineout' },
+  { key: 'DineOut', label: 'DineOut', iconActive: 'dineout', iconInactive: 'dineout', useImage: true },
   { key: 'Account', label: 'Account', iconActive: 'user-filled', iconInactive: 'user' },
 ];
 
@@ -29,7 +32,6 @@ export function BottomTabBar({ activeTab = 'Home', bottomInset }: BottomTabBarPr
       {TABS.map((tab) => {
         const isActive = tab.key === activeTab;
         const color = isActive ? C.primary : C.tertiary;
-        const iconName = isActive ? tab.iconActive : tab.iconInactive;
 
         return (
           <Pressable
@@ -38,7 +40,14 @@ export function BottomTabBar({ activeTab = 'Home', bottomInset }: BottomTabBarPr
             accessibilityLabel={tab.label}
             accessibilityRole="tab"
           >
-            <BoltIcon name={iconName} size={24} color={color} />
+            {tab.useImage ? (
+              <Image
+                source={DINEOUT_ICON}
+                style={[styles.tabIcon, { tintColor: color }]}
+              />
+            ) : (
+              <BoltIcon name={isActive ? tab.iconActive : tab.iconInactive} size={24} color={color} />
+            )}
             <Text style={[F.BodyXSRegular, { color, marginTop: 2 }]}>{tab.label}</Text>
           </Pressable>
         );
@@ -62,5 +71,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 2,
     flex: 1,
+  },
+  tabIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
   },
 });
