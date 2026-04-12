@@ -85,8 +85,8 @@ function T({ type, color, style, ...rest }: TextProps & { type: string; color?: 
 
 // ── Layout constants ─────────────────────────────────────────────
 const SW = Dimensions.get('window').width;
-const COL_GAP = 12;
-const ROW_GAP = 16;
+const COL_GAP = 16;
+const ROW_GAP = 24;
 const CARD_W = (SW - SCREEN_PADDING_H * 2 - COL_GAP) / 2;
 
 // Icons now come from bolticons.ttf via BoltIcon component
@@ -209,21 +209,22 @@ function BoltPlusBadge({ size = 16 }: { size?: number }) {
 function RatingBadge({
   rating,
   reviews,
-  size = 'small',
 }: {
   rating: string;
   reviews: string;
-  size?: 'small' | 'large';
 }) {
+  const isGolden = parseFloat(rating) >= 4.6;
   return (
-    <View style={s.ratingBadge}>
-      <BoltIcon name="star-filled" size={11} color="#E8A100" />
-      <T type="TabXSAccent" color={C.primary} style={s.ratingValue}>
-        {rating}
-      </T>
-      <T type="TabXSRegular" color={C.secondary}>
-        ({reviews})
-      </T>
+    <View style={s.ratingOuter}>
+      <View style={[s.ratingInner, isGolden && s.ratingGolden]}>
+        <BoltIcon name="star-filled" size={12} color={isGolden ? '#C89200' : C.primary} />
+        <T type="BodyXSAccent" color={C.primary}>
+          {rating}
+        </T>
+        <T type="BodyXSRegular" color={C.primary}>
+          ({reviews})
+        </T>
+      </View>
     </View>
   );
 }
@@ -326,7 +327,7 @@ function RestaurantCard({ restaurant, onPress }: { restaurant: Restaurant; onPre
       <View style={s.cardImgWrap}>
         <Image source={{ uri: restaurant.image }} style={s.cardImg} />
 
-        {/* Content layer — 8px margin from image edges (production M size) */}
+        {/* Content layer — 12px margin from image edges (production L size) */}
         <View style={s.cardImgContent}>
           {/* Campaign badge — top left */}
           {restaurant.promo != null && (
@@ -347,7 +348,7 @@ function RestaurantCard({ restaurant, onPress }: { restaurant: Restaurant; onPre
         </View>
       </View>
 
-      {/* Details below image — 4px top gap (production M size) */}
+      {/* Details below image — 8px top gap (production L size for grid) */}
       <View style={s.cardBody}>
         <View style={s.nameRow}>
           <T type="BodyMAccent" numberOfLines={1} style={s.nameText}>
@@ -847,7 +848,7 @@ const s = StyleSheet.create({
   cardImg: { ...StyleSheet.absoluteFillObject, width: '100%', height: '100%' },
   cardImgContent: {
     ...StyleSheet.absoluteFillObject,
-    margin: 8,
+    margin: 12,
   },
 
   // Heart — absolute top:0 right:0 within 8px content margin, 24px
@@ -885,19 +886,25 @@ const s = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
-  ratingBadge: {
+  ratingOuter: {
+    borderRadius: 4,
+    backgroundColor: '#FFFFFF',
+  },
+  ratingInner: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: C.bgWarningSecondary,
     borderRadius: 4,
+    backgroundColor: '#FFFFFF',
     paddingHorizontal: 6,
-    paddingVertical: 3,
-    gap: 3,
+    paddingVertical: 4,
+    gap: 4,
   },
-  ratingValue: { marginLeft: 1 },
+  ratingGolden: {
+    backgroundColor: C.bgWarningSecondary,
+  },
 
-  // Card body — 4px topGap (production M size)
-  cardBody: { paddingTop: 4 },
+  // Card body — 8px topGap (production L size for grid)
+  cardBody: { paddingTop: 8 },
   nameRow: {
     flexDirection: 'row',
     alignItems: 'center',
