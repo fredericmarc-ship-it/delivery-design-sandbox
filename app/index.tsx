@@ -382,44 +382,207 @@ function RestaurantGrid({ items, onPress }: { items: Restaurant[]; onPress: (id:
 }
 
 // ════════════════════════════════════════════════════════════════
-// ── Promo Banner ─────────────────────────────────────────────
+// ── Retail Snippet (Bolt Market section from Figma) ──────────
 // ════════════════════════════════════════════════════════════════
 
-const GROCERY_ITEMS = [
-  { image: 'https://images.unsplash.com/photo-1553909489-cd47e0907980?w=200&h=200&fit=crop', discount: '-30%', price: '1,93 €' },
-  { image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=200&h=200&fit=crop', discount: '-20%', price: '1,40 €' },
-  { image: 'https://images.unsplash.com/photo-1622485831930-6e9e5b13ae40?w=200&h=200&fit=crop', discount: '-25%', price: '2,39 €' },
+const STORE_LOGO = 'https://www.figma.com/api/mcp/asset/fe8ae5eb-9be4-49ac-a6d8-981f6f08ffab';
+
+interface GroceryProduct {
+  image: string;
+  price: string;
+  originalPrice?: string;
+  name: string;
+  unitPrice: string;
+  labels?: { text: string; color: string; textColor: string }[];
+}
+
+const GROCERY_PRODUCTS: GroceryProduct[] = [
+  {
+    image: 'https://www.figma.com/api/mcp/asset/15aa7af0-965f-4b51-bfba-5a7be6b4b0e9',
+    price: '1,50 €', name: 'Bananas, 1 kg', unitPrice: '1,50 €/kg',
+    labels: [{ text: 'New', color: '#FFB200', textColor: C.primary }],
+  },
+  {
+    image: 'https://www.figma.com/api/mcp/asset/d3eead6e-4272-4715-a13a-d47b14d2cad4',
+    price: '1,50 €', originalPrice: '3,50 €', name: 'Oddly Good Barista Oat', unitPrice: '200,78 lei/kg',
+    labels: [
+      { text: 'New', color: '#FFB200', textColor: C.primary },
+      { text: '−25 %', color: C.bgDangerPrimary, textColor: '#fff' },
+    ],
+  },
+  {
+    image: 'https://www.figma.com/api/mcp/asset/a7af8eb4-6fe0-4679-871a-144134b50914',
+    price: '1,50 €', name: 'Lemons, 500 g', unitPrice: '3,00 €/kg',
+  },
+  {
+    image: 'https://www.figma.com/api/mcp/asset/d14c3003-4b07-4966-b43f-a2a474cbafbb',
+    price: '1,50 €', originalPrice: '3,50 €', name: 'Greek Yogurt, 400 g', unitPrice: '3,75 €/kg',
+    labels: [
+      { text: 'New', color: '#FFB200', textColor: C.primary },
+      { text: '−25 %', color: C.bgDangerPrimary, textColor: '#fff' },
+    ],
+  },
+  {
+    image: 'https://www.figma.com/api/mcp/asset/69476aaa-f002-4c6a-90f8-5f9656a229ad',
+    price: '1,50 €', name: 'Chocolate Croissant', unitPrice: '200,78 lei/kg',
+    labels: [{ text: 'Sweet', color: '#FFB200', textColor: C.primary }],
+  },
 ];
 
-function PromoBanner() {
+function RetailSnippet() {
   return (
-    <View style={s.promoWrap}>
-      <View style={s.promoHeader}>
-        <T type="BodyMAccent" color={C.primary}>Full cart, happy wallet</T>
-        <View style={s.promoBoltMarket}>
-          <T type="BodyXSAccent" color={C.primary}>Bolt Market</T>
+    <View style={rs.wrap}>
+      {/* Store header */}
+      <View style={rs.header}>
+        <View style={rs.logoWrap}>
+          <Image source={{ uri: STORE_LOGO }} style={rs.logo} />
+          <View style={rs.logoOverlay} />
+        </View>
+        <View style={rs.headerText}>
+          <T type="HeadingXS" numberOfLines={1}>Bolt Market Tulika</T>
+          <View style={rs.headerMeta}>
+            <BoltIcon name="bicycle" size={12} color={C.primary} />
+            <T type="TabXSRegular" color={C.primary} style={{ marginLeft: 3 }}>1,50 €</T>
+            <View style={rs.metaDot} />
+            <BoltIcon name="clock" size={12} color={C.primary} />
+            <T type="BodyXSRegular" color={C.primary} style={{ marginLeft: 3 }}>15–25 min</T>
+            <View style={rs.metaDot} />
+            <BoltIcon name="star-filled" size={12} color="#E8A100" />
+            <T type="BodyXSRegular" color={C.primary} style={{ marginLeft: 2 }}>4.8</T>
+            <T type="BodyXSRegular" color={C.primary}> (500+)</T>
+          </View>
         </View>
       </View>
+
+      {/* Product cards — horizontal scroll */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={s.promoItemsRow}
+        contentContainerStyle={rs.productsRow}
       >
-        {GROCERY_ITEMS.map((item, i) => (
-          <View key={i} style={s.promoItem}>
-            <View style={s.promoItemImgWrap}>
-              <Image source={{ uri: item.image }} style={s.promoItemImg} />
-              <View style={s.promoDiscount}>
-                <RNText style={s.promoDiscountText}>{item.discount}</RNText>
-              </View>
+        {GROCERY_PRODUCTS.map((product, i) => (
+          <View key={i} style={rs.productCard}>
+            {/* Image block */}
+            <View style={rs.imgBlock}>
+              <Image source={{ uri: product.image }} style={rs.productImg} contentFit="cover" />
+              <View style={rs.imgTint} />
+              {/* Labels */}
+              {product.labels != null && (
+                <View style={rs.labelsWrap}>
+                  {product.labels.map((label, j) => (
+                    <View key={j} style={[rs.label, { backgroundColor: label.color }]}>
+                      <T type="BodyXSAccent" color={label.textColor}>{label.text}</T>
+                    </View>
+                  ))}
+                </View>
+              )}
+              {/* Quick-add button */}
+              <Pressable style={rs.quickAdd} accessibilityLabel={`Add ${product.name}`}>
+                <BoltIcon name="plus" size={20} color={C.primary} />
+              </Pressable>
             </View>
-            <T type="TabXSAccent" color={C.primary} style={s.promoItemPrice}>{item.price}</T>
+            {/* Price */}
+            {product.originalPrice != null ? (
+              <View style={rs.priceCol}>
+                <T type="BodySAccent" color={C.dangerPrimary}>{product.price}</T>
+                <T type="BodyXSRegular" color={C.secondary} style={rs.strikePrice}>{product.originalPrice}</T>
+              </View>
+            ) : (
+              <T type="BodySAccent" style={rs.priceText}>{product.price}</T>
+            )}
+            {/* Description */}
+            <T type="BodyXSRegular" numberOfLines={2} style={rs.prodName}>{product.name}</T>
+            <T type="Body2XSRegular" color={C.secondary}>{product.unitPrice}</T>
           </View>
         ))}
+
+        {/* View more card */}
+        <View style={rs.viewMoreCard}>
+          <View style={rs.viewMoreCircle}>
+            <BoltIcon name="chevron-right" size={24} color={C.primary} />
+          </View>
+          <T type="BodyXSAccent">View more</T>
+        </View>
       </ScrollView>
     </View>
   );
 }
+
+const rs = StyleSheet.create({
+  wrap: { paddingTop: 12 },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: SCREEN_PADDING_H,
+    gap: 12,
+    height: 48,
+  },
+  logoWrap: {
+    width: 48, height: 48,
+    borderRadius: DEFAULT_BORDER_RADIUS,
+    overflow: 'hidden',
+  },
+  logo: { width: '100%', height: '100%' },
+  logoOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,45,30,0.06)',
+  },
+  headerText: { flex: 1, gap: 4 },
+  headerMeta: { flexDirection: 'row', alignItems: 'center' },
+  metaDot: {
+    width: 3, height: 3, borderRadius: 1.5,
+    backgroundColor: C.tertiary, marginHorizontal: 6,
+  },
+  productsRow: {
+    paddingHorizontal: SCREEN_PADDING_H,
+    paddingTop: 12,
+    gap: 12,
+  },
+  productCard: { width: 132 },
+  imgBlock: {
+    width: 132, height: 132,
+    borderRadius: DEFAULT_BORDER_RADIUS,
+    overflow: 'hidden',
+    backgroundColor: C.floor0,
+  },
+  productImg: { width: '100%', height: '100%' },
+  imgTint: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,45,30,0.06)',
+  },
+  labelsWrap: {
+    position: 'absolute', top: 4, left: 4, gap: 2,
+  },
+  label: {
+    borderRadius: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    height: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  quickAdd: {
+    position: 'absolute', bottom: 4, right: 4,
+    width: 36, height: 36, borderRadius: 18,
+    backgroundColor: C.floor0,
+    borderWidth: 1, borderColor: C.separator,
+    alignItems: 'center', justifyContent: 'center',
+  },
+  priceText: { marginTop: 4 },
+  priceCol: { marginTop: 4, paddingBottom: 2 },
+  strikePrice: { textDecorationLine: 'line-through' },
+  prodName: { marginTop: 2 },
+  viewMoreCard: {
+    width: 132, height: 132,
+    alignItems: 'center', justifyContent: 'center',
+    gap: 8,
+  },
+  viewMoreCircle: {
+    width: 56, height: 56, borderRadius: 28,
+    backgroundColor: C.bgNeutralSecondary,
+    alignItems: 'center', justifyContent: 'center',
+  },
+});
 
 // ════════════════════════════════════════════════════════════════
 // ── Basket Bar ───────────────────────────────────────────────
@@ -497,7 +660,7 @@ export default function HomeScreen() {
         <SectionHeader title="In the spotlight" subtitle="Sponsored" />
         <RestaurantGrid items={spotlight} onPress={go} />
 
-        <PromoBanner />
+        <RetailSnippet />
 
         <SectionHeader title="Groceries and more" />
         <RestaurantGrid items={groceries} onPress={go} />
@@ -754,56 +917,7 @@ const s = StyleSheet.create({
   },
   deliveryEtaText: { marginLeft: 3 },
 
-  /* ── Promo banner ── */
-  promoWrap: {
-    marginHorizontal: SCREEN_PADDING_H,
-    marginTop: 28,
-    backgroundColor: '#F2F4F3',
-    borderRadius: DEFAULT_BORDER_RADIUS,
-    paddingTop: 16,
-    paddingBottom: 12,
-    overflow: 'hidden',
-  },
-  promoHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    marginBottom: 12,
-  },
-  promoBoltMarket: {
-    backgroundColor: C.bgNeutralSecondary,
-    borderRadius: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-  },
-  promoItemsRow: {
-    paddingHorizontal: 16,
-    gap: 12,
-  },
-  promoItem: {
-    width: 96,
-    alignItems: 'center',
-  },
-  promoItemImgWrap: {
-    width: 96,
-    height: 96,
-    borderRadius: DEFAULT_BORDER_RADIUS,
-    overflow: 'hidden',
-    backgroundColor: C.floor0,
-  },
-  promoItemImg: { width: '100%', height: '100%' },
-  promoDiscount: {
-    position: 'absolute',
-    top: 6,
-    left: 6,
-    backgroundColor: C.bgDangerPrimary,
-    borderRadius: 4,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-  },
-  promoDiscountText: { color: '#fff', fontSize: 11, fontWeight: '700' },
-  promoItemPrice: { marginTop: 4 },
+  /* ── (retail snippet styles in rs StyleSheet above) ── */
 
   /* ── Basket bar ── */
   basketBar: {
