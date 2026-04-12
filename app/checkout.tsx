@@ -100,7 +100,7 @@ export default function CheckoutScreen() {
                 {item.name}
               </T>
               <T type="TabularMAccent">
-                €{(item.price * item.quantity).toFixed(2)}
+                {(item.price * item.quantity).toFixed(2)} €
               </T>
             </View>
           ))}
@@ -130,7 +130,7 @@ export default function CheckoutScreen() {
         <View style={styles.section}>
           <View style={styles.priceRow}>
             <T type="BodyMRegular">Subtotal</T>
-            <T type="TabularM">€{subtotal.toFixed(2)}</T>
+            <T type="TabularM">{subtotal.toFixed(2)} €</T>
           </View>
           <View style={styles.priceRow}>
             <T type="BodyMRegular">Delivery</T>
@@ -139,12 +139,12 @@ export default function CheckoutScreen() {
                 Free
               </T>
             ) : (
-              <T type="TabularM">€{delivery.toFixed(2)}</T>
+              <T type="TabularM">{delivery.toFixed(2)} €</T>
             )}
           </View>
           <View style={[styles.priceRow, styles.totalRow]}>
             <T type="BodyLAccent">Total</T>
-            <T type="TabularLAccent">€{total.toFixed(2)}</T>
+            <T type="TabularLAccent">{total.toFixed(2)} €</T>
           </View>
         </View>
 
@@ -155,7 +155,7 @@ export default function CheckoutScreen() {
       <View style={[styles.ctaContainer, { paddingBottom: insets.bottom + 16 }]}>
         <Pressable style={styles.ctaButton} onPress={handlePlaceOrder}>
           <T type="BodyLAccent" color={C.primaryInverted}>
-            Place order · €{total.toFixed(2)}
+            Place order · {total.toFixed(2)} €
           </T>
         </Pressable>
       </View>

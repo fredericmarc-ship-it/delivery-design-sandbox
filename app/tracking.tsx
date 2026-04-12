@@ -176,7 +176,7 @@ export default function TrackingScreen() {
           <T type="BodyMRegular">{basket.restaurantName || 'Your order'}</T>
           <View style={styles.orderSummaryRight}>
             <T type="TabularMAccent">
-              €{(basket.totalPrice + basket.deliveryFee).toFixed(2)}
+              {(basket.totalPrice + basket.deliveryFee).toFixed(2)} €
             </T>
             <T type="BodyMRegular" color={C.tertiary}>
               {' '}→
