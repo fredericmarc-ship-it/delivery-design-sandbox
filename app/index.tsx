@@ -92,103 +92,38 @@ const CARD_W = (SW - SCREEN_PADDING_H * 2 - COL_GAP) / 2;
 
 // Icons now come from bolticons.ttf via BoltIcon component
 
+// StatusBarChrome removed — frame.html provides the device chrome
+
 // ════════════════════════════════════════════════════════════════
-// ── iPhone Status Bar Chrome ─────────────────────────────────
+// ── Hero Banner (top section from Figma) ─────────────────────
 // ════════════════════════════════════════════════════════════════
 
-function StatusBarChrome() {
+const HERO_ILLUSTRATION = 'https://www.figma.com/api/mcp/asset/b4c99fc2-10da-4bc5-aee1-2990f72679b2';
+
+function HeroBanner() {
   return (
-    <View style={sb.bar}>
-      <View style={sb.left}>
-        <RNText style={sb.time}>15:31</RNText>
-      </View>
-      {/* Dynamic island is rendered by frame.html — no duplicate here */}
-      <View style={sb.islandSpacer} />
-      <View style={sb.right}>
-        <View style={sb.signal}>
-          <View style={[sb.dot, sb.dotFilled]} />
-          <View style={[sb.dot, sb.dotFilled]} />
-          <View style={[sb.dot, sb.dotEmpty]} />
-          <View style={[sb.dot, sb.dotEmpty]} />
+    <View style={s.hero}>
+      {/* Background illustration */}
+      <Image source={{ uri: HERO_ILLUSTRATION }} style={s.heroIllustration} contentFit="cover" />
+
+      {/* Address selector — overlaid top-left */}
+      <Pressable style={s.addressBar} accessibilityLabel="Change delivery address">
+        <BoltIcon name="pin-filled" size={20} color={C.primary} />
+        <View style={s.addressText}>
+          <T type="BodySAccent">Rotermanni 6</T>
+          <T type="BodyXSRegular" color={C.secondary}>Tallinn, Estonia</T>
         </View>
-        <View style={sb.wifi}>
-          <View style={sb.wifiArc3} />
-          <View style={sb.wifiArc2} />
-          <View style={sb.wifiDot} />
-        </View>
-        <View style={sb.batteryWrap}>
-          <View style={sb.batteryBody}>
-            <View style={sb.batteryFill} />
-          </View>
-          <View style={sb.batteryTip} />
-        </View>
+      </Pressable>
+
+      {/* Promo text — bottom-left */}
+      <View style={s.heroPromo}>
+        <T type="HeadingS">Free delivery{'\n'}with Bolt Plus</T>
+        <Pressable style={s.heroAction} accessibilityLabel="Join Bolt Plus">
+          <T type="BodySAccent">Join now</T>
+          <BoltIcon name="chevron-right" size={16} color={C.primary} />
+        </Pressable>
       </View>
     </View>
-  );
-}
-
-const sb = StyleSheet.create({
-  bar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 54,
-    paddingHorizontal: 20,
-  },
-  left: { width: 80, alignItems: 'flex-start' },
-  time: { fontSize: 16, fontWeight: '600', color: C.primary, letterSpacing: 0.2 },
-  islandSpacer: {
-    width: 126,
-    height: 36,
-  },
-  right: { width: 80, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 6 },
-  signal: { flexDirection: 'row', alignItems: 'center', gap: 2 },
-  dot: { width: 4, height: 4, borderRadius: 2 },
-  dotFilled: { backgroundColor: C.primary },
-  dotEmpty: { backgroundColor: 'rgba(0,0,0,0.2)' },
-  wifi: { width: 14, height: 10, alignItems: 'center', justifyContent: 'flex-end' },
-  wifiArc3: {
-    position: 'absolute', top: 0, width: 14, height: 8,
-    borderTopLeftRadius: 7, borderTopRightRadius: 7,
-    borderWidth: 1.5, borderBottomWidth: 0, borderColor: C.primary,
-  },
-  wifiArc2: {
-    position: 'absolute', top: 3, width: 8, height: 5,
-    borderTopLeftRadius: 5, borderTopRightRadius: 5,
-    borderWidth: 1.5, borderBottomWidth: 0, borderColor: C.primary,
-  },
-  wifiDot: {
-    width: 3, height: 3, borderRadius: 1.5, backgroundColor: C.primary,
-  },
-  batteryWrap: { flexDirection: 'row', alignItems: 'center' },
-  batteryBody: {
-    width: 22, height: 11, borderRadius: 2.5,
-    borderWidth: 1, borderColor: C.primary,
-    padding: 1.5, overflow: 'hidden',
-  },
-  batteryFill: {
-    width: '65%', height: '100%', borderRadius: 1,
-    backgroundColor: '#F5A623',
-  },
-  batteryTip: {
-    width: 1.5, height: 5, backgroundColor: C.primary,
-    borderTopRightRadius: 1, borderBottomRightRadius: 1, marginLeft: 0.5,
-  },
-});
-
-// ════════════════════════════════════════════════════════════════
-// ── Address Bar ──────────────────────────────────────────────
-// ════════════════════════════════════════════════════════════════
-
-function AddressBar() {
-  return (
-    <Pressable style={s.addressBar} accessibilityLabel="Change delivery address">
-      <BoltIcon name="pin-filled" size={24} color={C.primary} />
-      <View style={s.addressText}>
-        <T type="BodyMAccent">Veerenni Tänav 24/1</T>
-        <T type="BodyXSRegular" color={C.secondary}>Tallinn</T>
-      </View>
-    </Pressable>
   );
 }
 
@@ -198,14 +133,16 @@ function AddressBar() {
 
 function SearchBar() {
   return (
-    <View style={s.searchBar}>
-      <BoltIcon name="search" size={22} color={C.tertiary} />
-      <T type="BodyMRegular" color={C.tertiary} style={s.searchPlaceholder}>
-        Food, restaurants, stores...
-      </T>
-      <Pressable style={s.filterBtn} accessibilityLabel="Filters">
-        <BoltIcon name="filter" size={20} color={C.primary} />
-      </Pressable>
+    <View style={s.searchBarWrap}>
+      <View style={s.searchBar}>
+        <BoltIcon name="search" size={22} color={C.tertiary} />
+        <T type="BodyMRegular" color={C.tertiary} style={s.searchPlaceholder}>
+          Food, restaurants, stores...
+        </T>
+        <Pressable style={s.filterBtn} accessibilityLabel="Filters">
+          <BoltIcon name="filter" size={20} color={C.primary} />
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -543,14 +480,11 @@ export default function HomeScreen() {
       {/* Safe area top spacer */}
       <View style={{ height: insets.top, backgroundColor: C.floor0 }} />
 
-      {/* Status bar stays fixed — the rest scrolls */}
-      <StatusBarChrome />
-
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={s.scrollContent}
       >
-        <AddressBar />
+        <HeroBanner />
         <SearchBar />
         <CategoryRow />
 
@@ -595,23 +529,45 @@ const s = StyleSheet.create({
   root: { flex: 1, backgroundColor: C.floor0 },
   scrollContent: { paddingBottom: 140 },
 
-  /* ── Address bar ── */
+  /* ── Hero banner ── */
+  hero: {
+    height: 288,
+    justifyContent: 'flex-end',
+    paddingBottom: 24,
+  },
+  heroIllustration: {
+    ...StyleSheet.absoluteFillObject,
+    width: '100%',
+    height: '100%',
+  },
   addressBar: {
+    position: 'absolute',
+    top: 54,
+    left: 0,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: SCREEN_PADDING_H,
-    paddingTop: 4,
-    paddingBottom: 8,
-    gap: 10,
+    gap: 8,
   },
-  addressText: { flex: 1 },
+  addressText: {},
+  heroPromo: {
+    paddingHorizontal: SCREEN_PADDING_H,
+    gap: 8,
+  },
+  heroAction: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
 
   /* ── Search bar ── */
+  searchBarWrap: {
+    paddingHorizontal: SCREEN_PADDING_H,
+    paddingBottom: 12,
+  },
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginHorizontal: SCREEN_PADDING_H,
-    marginBottom: 4,
     backgroundColor: C.bgNeutralSecondary,
     borderRadius: DEFAULT_BORDER_RADIUS,
     paddingLeft: 12,
