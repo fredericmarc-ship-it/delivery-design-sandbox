@@ -323,10 +323,10 @@ function RestaurantCard({ restaurant, onPress }: { restaurant: Restaurant; onPre
       <View style={s.cardImgWrap}>
         <Image source={{ uri: restaurant.image }} style={s.cardImg} />
 
-        {/* Heart icon - top right, white circle */}
-        <View style={s.heart}>
-          <BoltIcon name="heart" size={14} color={C.primary} />
-        </View>
+        {/* Heart icon - top right, no background */}
+        <Pressable style={s.heart} accessibilityLabel="Save to favourites">
+          <Image source={require('../assets/images/ic-heart.png')} style={s.heartIcon} />
+        </Pressable>
 
         {/* Campaign badge - top left, red */}
         {restaurant.promo != null && (
@@ -837,17 +837,20 @@ const s = StyleSheet.create({
   },
   cardImg: { width: '100%', height: '100%' },
 
-  // Heart icon - white circle, top right
+  // Heart icon - top right, no background
   heart: {
     position: 'absolute',
     top: 8,
     right: 8,
     width: 28,
     height: 28,
-    borderRadius: 14,
-    backgroundColor: 'rgba(255,255,255,0.9)',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  heartIcon: {
+    width: 20,
+    height: 20,
+    tintColor: '#FFFFFF',
   },
 
   // Campaign badge - red, top left
