@@ -23,22 +23,33 @@ The sandbox includes pre-built components in `src/components/`. Import and use t
 | `DeliveryInfo` | `src/components/DeliveryInfo` | Bicycle + fee + clock + ETA row. Props: `deliveryFee`, `eta`, `originalFee?` |
 | `ProviderCard` | `src/components/ProviderCard` | Complete merchant card (image, badges, rating, name, delivery info). Props: `restaurant`, `size`, `onPress` |
 | `SectionHeader` | `src/components/SectionHeader` | "Title ... All >" row. Props: `title`, `subtitle?` |
-| `BottomTabBar` | `src/components/BottomTabBar` | 5-tab navigation bar. Props: `activeTab`, `bottomInset` |
-| `StatusBarChrome` | `src/components/StatusBarChrome` | iPhone status bar mockup (time, signal, wifi, battery) |
+| `BottomTabBar` | `src/components/BottomTabBar` | 5-tab navigation bar using PNG icons. Props: `activeTab`, `bottomInset` |
 
 ### Icons
 
-Icons use the real Bolt icon font (`bolticons.ttf`, 239 glyphs). See `ICONS.md` for the complete catalogue.
+**Nav bar icons** use PNG assets in `assets/images/` (not the font). The `BottomTabBar` component handles this automatically with `tintColor` for active/inactive states.
+
+**In-content icons** use `bolticons.ttf` (332 glyphs) via the `BoltIcon` component. **Warning:** the CSS glyph map (`bolticons.css`) does not match the actual font file — many icons render as the wrong glyph. Use `public/icon-audit.html` to visually verify codepoints before using new icons.
 
 ```tsx
 import { BoltIcon } from '../src/components/Icon';
 
 <BoltIcon name="bicycle" size={16} color={C.secondary} />
 <BoltIcon name="star-filled" size={12} color="#E8A100" />
-<BoltIcon name="heart" size={14} color={C.primary} />
+<BoltIcon name="location-pin-filled" size={14} color={C.primary} />
 ```
 
-Common delivery icons: `bicycle`, `clock`, `star-filled`, `heart`, `heart-filled`, `pin`, `pin-filled`, `basket`, `order`, `search`, `filter`, `chevron-right`, `close`, `plus`, `minus`, `check`.
+Verified icons: `bicycle`, `clock`, `star-filled`, `location-pin-filled` (0xe98d), `location-pin` (0xe98e), `home` (0xe96c), `home-filled` (0xe96f), `basket` (0xe9eb), `search` (0xe927), `order` (0xe97a), `filter`, `chevron-right`, `close`, `plus`, `minus`, `check`, `arrow-circle-right`.
+
+### Bundled Assets
+
+Figma asset URLs expire after 7 days. All images are bundled locally in `assets/images/`:
+- `hero-illustration.png` — home screen hero banner background
+- `store-logo.png` — Bolt Market logo
+- `product-1.png` through `product-5.png` — retail snippet product images
+- `ic-home.png`, `ic-groceries.png`, `ic-search.png`, `ic-dineout.png`, `ic-user.png`, `ic-heart.png` — icon PNGs
+
+Use `require('../assets/images/...')` instead of remote URLs.
 
 ---
 
