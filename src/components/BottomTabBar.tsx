@@ -23,7 +23,7 @@ interface BottomTabBarProps {
 
 export function BottomTabBar({ activeTab = 'Home', bottomInset }: BottomTabBarProps) {
   return (
-    <View style={[styles.container, { paddingBottom: Math.max(bottomInset, 8) }]}>
+    <View style={[styles.container, { paddingBottom: Math.max(bottomInset, 34) }]}>
       {TABS.map((tab) => {
         const isActive = tab.key === activeTab;
         const color = isActive ? C.primary : C.tertiary;

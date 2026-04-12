@@ -134,12 +134,12 @@ function SearchBar() {
   return (
     <View style={s.searchBarWrap}>
       <View style={s.searchBar}>
-        <BoltIcon name="search" size={22} color={C.tertiary} />
+        <BoltIcon name="search" size={22} color={C.secondary} />
         <T type="BodyMRegular" color={C.tertiary} style={s.searchPlaceholder}>
           Food, restaurants, stores...
         </T>
         <Pressable style={s.filterBtn} accessibilityLabel="Filters">
-          <BoltIcon name="filter" size={20} color={C.primary} />
+          <BoltIcon name="filter" size={20} color={C.secondary} />
         </Pressable>
       </View>
     </View>
