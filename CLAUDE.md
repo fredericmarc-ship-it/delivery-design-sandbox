@@ -8,7 +8,9 @@ You are helping a product designer prototype screens and interactions for Bolt's
 - **Preview**: Expo Go on device or web browser — no Xcode/Android Studio required
 - **Language**: TypeScript, functional components only
 - **Styling**: StyleSheet.create() using design tokens below — no inline styles, no Tailwind, no styled-components
+- **Font**: System font (San Francisco on iOS/web, Roboto on Android). InterVariable is not bundled.
 - **Components**: Import from `src/components/` — the sandbox ships simplified versions of Bolt's design system components. When a component doesn't exist, build it from primitives (View, Text, Pressable, Image) using the tokens below.
+- **Production source**: `food-delivery-eater-app/` contains the full Bolt Food eater app source. Always read production components first before building — they have the exact specs.
 
 ### Shared Components
 
@@ -408,8 +410,9 @@ Structure:
 6. **Flat file preference.** Keep each prototype in a single file where possible. The designer should be able to open one file and see the whole screen.
 7. **Default to light mode.** Only use dark mode tokens when explicitly requested.
 8. **Accessibility basics.** Include `accessibilityLabel` on interactive elements and images. Use semantic color tokens (not raw hex values) so contrast ratios are maintained.
-9. **Euro currency.** Default to € for prices unless the designer specifies another currency.
-10. **Status bar.** The sandbox includes `StatusBarChrome` in `src/components/` for iPhone status bar mockups in prototypes.
+9. **Euro currency.** Format as `X,XX €` (number first, then euro sign). Default to € unless the designer specifies another currency.
+10. **Frame safe areas.** On web, `useSafeAreaInsets()` returns 0. Use `Math.max(insets.top, 54)` for top spacing and `Math.max(insets.bottom, 34)` for bottom padding to clear the frame.html device chrome.
+11. **Read production source first.** Before building any component, read the equivalent in `food-delivery-eater-app/src/components/` for exact specs — dimensions, spacing, typography, colors. Figma is for visual validation, not the primary source.
 
 ---
 
