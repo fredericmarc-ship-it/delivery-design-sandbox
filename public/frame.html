@@ -55,9 +55,17 @@
 <body>
   <div class="wrapper">
     <div class="phone">
-      <iframe src="/"></iframe>
+      <iframe id="app-frame" src="/"></iframe>
     </div>
     <p class="label">Bolt Delivery · Design Sandbox</p>
   </div>
+  <script>
+    // Allow ?screen=/tip-redesign or any route
+    const params = new URLSearchParams(window.location.search);
+    const screen = params.get('screen');
+    if (screen) {
+      document.getElementById('app-frame').src = screen.startsWith('/') ? screen : '/' + screen;
+    }
+  </script>
 </body>
 </html>

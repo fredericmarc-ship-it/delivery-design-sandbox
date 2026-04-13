@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/frame.html", "destination": "/frame.html" },
+    { "source": "/icon-audit.html", "destination": "/icon-audit.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
