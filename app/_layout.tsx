@@ -35,6 +35,7 @@ export default function RootLayout() {
           <Stack.Screen name="provider/[id]" />
           <Stack.Screen name="checkout" options={{ presentation: 'modal' }} />
           <Stack.Screen name="tracking" options={{ gestureEnabled: false }} />
+          <Stack.Screen name="tip-redesign" />
         </Stack>
       </BasketProvider>
     </SafeAreaProvider>
